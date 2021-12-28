@@ -1,6 +1,7 @@
 from logic.imports import *
 
 from logic.load_image import *
+
 from logic.term import *
 from logic.constants import *
 def start_screen(screen):
