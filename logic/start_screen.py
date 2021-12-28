@@ -1,14 +1,13 @@
 from logic.imports import *
 from logic.load_image import *
 from logic.term import *
-from logic.constants import *
-def start_screen(screen):
-    intro_text = ["ЗАСТАВКА", "",
-                  "Правила игры",
-                  "Если в правилах несколько строк,",
-                  "приходится выводить их построчно"]
+import logic.constants
 
-    fon = pygame.transform.scale(load_image('fon.jpg'), (SIZE))
+
+def start_screen(screen, clock):
+    intro_text = ['']
+
+    fon = pygame.transform.scale(load_image(logic.constants.INTRO_FON_PATH), (logic.constants.SIZE))
     screen.blit(fon, (0, 0))
     font = pygame.font.Font(None, 30)
     text_coord = 50
@@ -29,4 +28,4 @@ def start_screen(screen):
                     event.type == pygame.MOUSEBUTTONDOWN:
                 return  # начинаем игру
         pygame.display.flip()
-        clock.tick(FPS)
+        clock.tick(logic.constants.FPS)

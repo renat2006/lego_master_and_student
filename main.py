@@ -1,7 +1,10 @@
-from logic.imports import *
 from logic.screen_and_init import *
-from logic.constants import *
-screen = init(SIZE)
+from logic.start_screen import *
+from logic.menu import *
+import logic.constants
+screen, clock = init(logic.constants.SIZE)
+start_screen(screen, clock)
+load_menu(screen, clock)
 running = True
 while running:
     for event in pygame.event.get():
@@ -12,5 +15,5 @@ while running:
             if event.key == pygame.K_ESCAPE:
                 running = False
         screen.fill('black')
-
+        clock.tick(logic.constants.FPS)
         pygame.display.flip()
