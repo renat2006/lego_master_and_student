@@ -1,23 +1,34 @@
 from logic.imports import *
 from logic.load_image import *
-from logic.constants import *
+import logic.constants
 from logic.term import terminate
 from logic.buttons import Buttons
 
 
 def load_menu(screen, clock):
-    fon = pygame.transform.scale(load_image(MENU_FON_PATH), (SIZE))
-    screen.blit(fon, (0, 0))
-    start_btn = Buttons('Start', (255, 100, 100), (WIDTH // 2, HEIGHT // 2), screen)
+    start_btn_color = (0, 0, 0)
+    start_btn = Buttons('Start', start_btn_color, (logic.constants.WIDTH // 2, logic.constants.HEIGHT // 2))
 
+    screen.blit(start_btn.text,
+                (start_btn.pos_x, start_btn.pos_y))
     while True:
+        screen.fill('black')
+        fon = pygame.transform.scale(load_image(logic.constants.MENU_FON_PATH), (logic.constants.SIZE))
+
+        screen.blit(fon, (0, 0))
         for event in pygame.event.get():
+            start_btn_color = (0, 0, 0)
             if event.type == pygame.QUIT:
                 terminate()
-            elif event.type == pygame.KEYDOWN or \
-                    event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_pos = event.pos
-                print(mouse_pos)
+            try:
+                if start_btn.rect.collidepoint(event.pos):
+                    start_btn_color = (255, 0, 0)
+            except AttributeError:
+                pass
+        start_btn = Buttons('Start', start_btn_color, (logic.constants.WIDTH // 2, logic.constants.HEIGHT // 2))
+
+        screen.blit(start_btn.text,
+                    (start_btn.pos_x, start_btn.pos_y))
 
         pygame.display.flip()
-        clock.tick(FPS)
+        clock.tick(logic.constants.FPS)

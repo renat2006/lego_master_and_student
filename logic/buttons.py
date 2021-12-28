@@ -1,13 +1,17 @@
+import pygame
+
 from logic.imports import *
 from logic.constants import *
 
 
 class Buttons:
-    def __init__(self, b_text, color, pos, screen):
+    def __init__(self, b_text, color, pos):
         self.text = b_text
+        self.font = pygame.font.Font('data/fonts/pixel.ttf', 50)
+        self.text = self.font.render(b_text, True, color)
         self.pos_x = pos[0]
         self.pos_y = pos[1]
-        font = pygame.font.Font(None, 50)
-        self.text = font.render(b_text, True, color)
+        self.rect = self.text.get_rect(center=(self.pos_x, self.pos_y))
+        self.pos_x = self.rect.x
+        self.pos_y = self.rect.y
 
-        screen.blit(self.text, (self.pos_x, self.pos_y))

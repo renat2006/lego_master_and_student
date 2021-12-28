@@ -1,13 +1,13 @@
 from logic.imports import *
 from logic.load_image import *
 from logic.term import *
-from logic.constants import *
+import logic.constants
 
 
 def start_screen(screen, clock):
     intro_text = ['']
 
-    fon = pygame.transform.scale(load_image(INTRO_FON_PATH), (SIZE))
+    fon = pygame.transform.scale(load_image(logic.constants.INTRO_FON_PATH), (logic.constants.SIZE))
     screen.blit(fon, (0, 0))
     font = pygame.font.Font(None, 30)
     text_coord = 50
@@ -28,4 +28,4 @@ def start_screen(screen, clock):
                     event.type == pygame.MOUSEBUTTONDOWN:
                 return  # начинаем игру
         pygame.display.flip()
-        clock.tick(FPS)
+        clock.tick(logic.constants.FPS)
