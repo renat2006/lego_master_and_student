@@ -1,9 +1,7 @@
 from logic.imports import *
-
-FPS = 60
-
-
-
+from logic.screen_and_init import *
+from logic.constants import *
+screen = init(SIZE)
 running = True
 while running:
     for event in pygame.event.get():
