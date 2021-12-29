@@ -3,7 +3,7 @@ from logic.load_image import *
 from logic.term import *
 import logic.constants
 
-
+# Код Рената --------------------------------------
 def start_screen(screen, clock):
     intro_text = ['']
 

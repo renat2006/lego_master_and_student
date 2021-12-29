@@ -2,6 +2,7 @@ import pygame
 
 from logic.load_image import *
 
+# Код Димы--------------------------------------
 player_group = pygame.sprite.Group()
 
 
