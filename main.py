@@ -36,14 +36,14 @@ while running:
 
         if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
             terminate()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                jump(player)
 
-        if event.key == pygame.K_SPACE:
-            jump(player)
-
-        if event.key == pygame.K_LEFT:
-            player.move(-logic.constants.STEP, 0)
-        if event.key == pygame.K_RIGHT:
-            player.move(logic.constants.STEP, 0)
+            if event.key == pygame.K_LEFT:
+                player.move(-logic.constants.STEP, 0)
+            if event.key == pygame.K_RIGHT:
+                player.move(logic.constants.STEP, 0)
     screen.fill('black')
 
     screen.fill("White", (0, 500, logic.constants.WIDTH, 10))
