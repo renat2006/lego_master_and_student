@@ -16,12 +16,12 @@ while running:
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT]:
         if player.is_jump():
-            player.move(-STEP * 5, 0)
+            player.move(-STEP * 4, 0)
         else:
             player.move(-STEP, 0)
     if keys[pygame.K_RIGHT]:
         if player.is_jump():
-            player.move(STEP * 5, 0)
+            player.move(STEP * 4, 0)
         else:
             player.move(STEP, 0)
     for event in pygame.event.get():
