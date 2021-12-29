@@ -11,6 +11,7 @@ running = True
 jumping = False
 player = Player("data/player.png", (5, 400))
 
+
 # Код Димы ------------------------------------
 def jump(obj):
     space = -15
@@ -24,26 +25,25 @@ def jump(obj):
         pygame.time.delay(20)
 
         pygame.display.flip()
-#-------------------------------------------------
+
+
+# -------------------------------------------------
 
 # Код Рената --------------------------------------
 
 while running:
     for event in pygame.event.get():
 
-        if event.type == pygame.QUIT:
-            running = False
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                running = False
-            # Код Димы --------------------------------------
-            if event.key == pygame.K_SPACE:
-                jump(player)
+        if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
+            terminate()
 
-            if event.key == pygame.K_LEFT:
-                player.move(-logic.constants.STEP, 0)
-            if event.key == pygame.K_RIGHT:
-                player.move(logic.constants.STEP, 0)
+        if event.key == pygame.K_SPACE:
+            jump(player)
+
+        if event.key == pygame.K_LEFT:
+            player.move(-logic.constants.STEP, 0)
+        if event.key == pygame.K_RIGHT:
+            player.move(logic.constants.STEP, 0)
     screen.fill('black')
 
     screen.fill("White", (0, 500, logic.constants.WIDTH, 10))
@@ -54,4 +54,4 @@ while running:
     clock.tick(logic.constants.FPS)
     pygame.display.flip()
 
-#------------------------------------------------------
+# ------------------------------------------------------
