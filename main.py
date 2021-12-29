@@ -15,9 +15,15 @@ jump_stage = JUMP_VALUE
 while running:
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT]:
-        player.move(-STEP, 0)
+        if player.is_jump():
+            player.move(-STEP * 5, 0)
+        else:
+            player.move(-STEP, 0)
     if keys[pygame.K_RIGHT]:
-        player.move(STEP, 0)
+        if player.is_jump():
+            player.move(STEP * 5, 0)
+        else:
+            player.move(STEP, 0)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
