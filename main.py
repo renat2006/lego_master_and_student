@@ -8,8 +8,8 @@ screen, clock = init(logic.constants.SIZE)
 start_screen(screen, clock)
 load_menu(screen, clock)
 running = True
-jumping = False
-player = Player("data/player.png", (5, 400))
+player = Player((5, 400))
+
 
 # Код Димы ------------------------------------
 def jump(obj):
@@ -24,30 +24,38 @@ def jump(obj):
         pygame.time.delay(20)
 
         pygame.display.flip()
-#-------------------------------------------------
+
+
+# -------------------------------------------------
 
 # Код Рената --------------------------------------
+jump_stage = logic.constants.JUMP_VALUE
 
 while running:
     for event in pygame.event.get():
-
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 running = False
             if event.key == pygame.K_SPACE:
-                jump(player)
+                player.set_jump()
             if event.key == pygame.K_LEFT:
                 player.move(-logic.constants.STEP, 0)
             if event.key == pygame.K_RIGHT:
                 player.move(logic.constants.STEP, 0)
+    if player.is_jump():
+        player.next_jump_stage(jump_stage)
+        jump_stage += 1
+    if jump_stage >= -JUMP_VALUE:
+        print(jump_stage)
+        player.set_jump()
     screen.fill('black')
     screen.fill("White", (0, 500, logic.constants.WIDTH, 10))
 
-    player_group.draw(screen)
     player_group.update()
+    player_group.draw(screen)
     clock.tick(logic.constants.FPS)
     pygame.display.flip()
 
-#------------------------------------------------------
+# ------------------------------------------------------
