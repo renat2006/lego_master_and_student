@@ -29,8 +29,7 @@ def jump(obj):
 # -------------------------------------------------
 
 # Код Рената --------------------------------------
-jump_stage = logic.constants.JUMP_VALUE
-
+jump_stage = JUMP_VALUE
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -39,17 +38,19 @@ while running:
             if event.key == pygame.K_ESCAPE:
                 running = False
             if event.key == pygame.K_SPACE:
-                player.set_jump()
+                if not player.is_jump():
+                    player.set_jump()
             if event.key == pygame.K_LEFT:
                 player.move(-logic.constants.STEP, 0)
             if event.key == pygame.K_RIGHT:
                 player.move(logic.constants.STEP, 0)
     if player.is_jump():
         player.next_jump_stage(jump_stage)
-        jump_stage += 1
-    if jump_stage >= -JUMP_VALUE:
-        print(jump_stage)
-        player.set_jump()
+        if jump_stage >= -JUMP_VALUE:
+            player.set_jump()
+            jump_stage = JUMP_VALUE
+        else:
+            jump_stage += 1
     screen.fill('black')
     screen.fill("White", (0, 500, logic.constants.WIDTH, 10))
 

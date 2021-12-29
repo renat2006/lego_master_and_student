@@ -41,8 +41,8 @@ class Player(pygame.sprite.Sprite):
         return False
 
     def next_jump_stage(self, jump_stage):
-        if self.is_jump() and jump_stage <= JUMP_VALUE:
-            self.move(0, jump_stage)
+        self.move(0, jump_stage)
+        pygame.time.delay(10)
 
         # while space <= 15:
         #     obj.move(0, space)
