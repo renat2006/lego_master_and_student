@@ -1,7 +1,8 @@
 import pygame
 
-from load_image import *
+from logic.load_image import *
 
+# Код Димы--------------------------------------
 player_group = pygame.sprite.Group()
 
 

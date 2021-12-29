@@ -3,7 +3,7 @@ import pygame
 from logic.imports import *
 import logic.constants
 
-
+# Код Рената --------------------------------------
 def init(size):
     pygame.init()
     screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
