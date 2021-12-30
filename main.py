@@ -50,7 +50,7 @@ while running:
 
     player_group.draw(screen)
     player_group.update()
-
+    all_sprites.draw(screen)
     clock.tick(logic.constants.FPS)
     pygame.display.flip()
 
