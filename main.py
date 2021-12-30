@@ -3,13 +3,15 @@ from logic.start_screen import *
 from logic.menu import *
 import logic.constants
 from logic.player import *
+from load_design_level1 import *
 
 screen, clock = init(logic.constants.SIZE)
 start_screen(screen, clock)
 load_menu(screen, clock)
 running = True
 jumping = False
-player = Player("data/player.png", (5, 400))
+player, level_x, level_y = generate_level(load_level('level1.txt'))
+
 
 # Код Димы ------------------------------------
 def jump(obj):
@@ -44,14 +46,16 @@ while running:
                 player.move(-logic.constants.STEP, 0)
             if event.key == pygame.K_RIGHT:
                 player.move(logic.constants.STEP, 0)
-    screen.fill('black')
 
-    screen.fill("White", (0, 500, logic.constants.WIDTH, 10))
+    load_fon(logic.constants.BACKGROUND_1level, screen)
 
+    all_sprites.draw(screen)
+    all_sprites.update()
     player_group.draw(screen)
     player_group.update()
-    all_sprites.draw(screen)
-    clock.tick(logic.constants.FPS)
+
     pygame.display.flip()
+
+pygame.quit()
 
 #------------------------------------------------------
