@@ -7,7 +7,7 @@ from logic.constants import *
 class Buttons:
     def __init__(self, b_text, color, pos):
         self.text = b_text
-        self.font = pygame.font.Font('data/fonts/pixel.ttf', 50)
+        self.font = pygame.font.Font(FONT_PATH, 50)
         self.text = self.font.render(b_text, True, color)
         self.pos_x = pos[0]
         self.pos_y = pos[1]
