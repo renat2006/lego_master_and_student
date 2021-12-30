@@ -5,10 +5,11 @@ MENU_FON_PATH = 'data/menu_fon.png'
 PLAYER_IMAGE_PATH = "data/player.png"
 BTN_COLOR = ['black', 'red']
 STEP = 25
-BACKGROUND = "data/fon_city.png"
+BACKGROUND_1level = "data/fon_city.png"
 tile_width = tile_height = 70
 
 tile_images = {
     'wall': 'box.png',
-    'empty': None
+    'empty': None,
+    'plate': 'plate.png'
 }
