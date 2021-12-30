@@ -9,7 +9,7 @@ BACKGROUND_1level = "data/fon_city.png"
 tile_width = tile_height = 70
 
 tile_images = {
-    'wall': 'box.png',
+    'wall': 'data/box.png',
     'empty': None,
-    'plate': 'plate.png'
+    'plate': 'data/  plate.png'
 }

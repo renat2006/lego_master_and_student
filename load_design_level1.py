@@ -4,11 +4,12 @@ from generate_level import *
 import pygame
 import data
 
-#код Айгуль----------
+
+# код Айгуль----------
 
 def load_fon(fon_name, screen):
-    fon = pygame.transform.scale(load_image(fon_name), (1400, 840))
-    screen.fill("White")
+    fon = pygame.transform.scale(load_image(fon_name), (logic.constants.WIDTH, logic.constants.HEIGHT))
+
     screen.blit(fon, (0, 0))
 
 

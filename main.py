@@ -3,7 +3,8 @@ from logic.start_screen import *
 from logic.menu import *
 import logic.constants
 from logic.player import *
-
+from load_design_level1 import *
+import  load_design_level1
 screen, clock = init(logic.constants.SIZE)
 start_screen(screen, clock)
 load_menu(screen, clock)
@@ -27,7 +28,7 @@ def jump(obj):
 #-------------------------------------------------
 
 # Код Рената --------------------------------------
-
+player, level_x, level_y = load_design_level1.generate_level(load_design_level1.load_level('level1.txt'))
 while running:
     for event in pygame.event.get():
 
@@ -47,7 +48,7 @@ while running:
     screen.fill('black')
 
     screen.fill("White", (0, 500, logic.constants.WIDTH, 10))
-
+    load_fon('data/fon_city.png', screen)
     player_group.draw(screen)
     player_group.update()
 
