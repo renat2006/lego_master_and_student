@@ -10,6 +10,7 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, player_image, pos):
         super().__init__(player_group)
         self.image = load_image(player_image, -1)
+        self.image = pygame.transform.scale(self.image, (70, 70))
         self.clock = pygame.time.Clock()
         self.pos_x = pos[0]
         self.pos_y = pos[1]

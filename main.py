@@ -53,6 +53,8 @@ while running:
     all_sprites.update()
     player_group.draw(screen)
     player_group.update()
+    tiles_group.draw(screen)
+    tiles_group.update()
 
     pygame.display.flip()
 

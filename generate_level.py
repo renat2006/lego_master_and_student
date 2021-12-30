@@ -1,3 +1,5 @@
+import pygame.transform
+
 from logic.player import *
 import logic.constants
 
@@ -5,7 +7,6 @@ import logic.constants
 
 player = pygame.image.load(logic.constants.PLAYER_IMAGE_PATH)
 player_image = pygame.transform.scale(player, (70, 70))
-
 # основной персонаж
 player = None
 

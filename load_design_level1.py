@@ -2,7 +2,6 @@ import logic.load_image
 import logic.constants
 from generate_level import *
 import pygame
-import data
 
 #код Айгуль----------
 
