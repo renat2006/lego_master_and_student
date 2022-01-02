@@ -43,12 +43,3 @@ class Player(pygame.sprite.Sprite):
     def next_jump_stage(self, jump_stage):
         self.move(0, jump_stage)
         pygame.time.delay(15)
-
-        # while space <= 15:
-        #     obj.move(0, space)
-        #     space += 1
-        #     screen.fill("Black")
-        #     screen.fill("White", (0, 500, logic.constants.WIDTH, 10))
-        #     obj.update()
-        #     player_group.draw(screen)
-        #     pygame.time.delay(20)

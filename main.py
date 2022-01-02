@@ -16,12 +16,12 @@ while running:
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT]:
         if player.is_jump():
-            player.move(-STEP * 4, 0)
+            player.move(-STEP * 5, 0)
         else:
             player.move(-STEP, 0)
     if keys[pygame.K_RIGHT]:
         if player.is_jump():
-            player.move(STEP * 4, 0)
+            player.move(STEP * 5, 0)
         else:
             player.move(STEP, 0)
     for event in pygame.event.get():
@@ -49,7 +49,10 @@ while running:
 
     player_group.update()
     player_group.draw(screen)
-    clock.tick(logic.constants.FPS)
+    if player.is_jump():
+        clock.tick(60)
+    else:
+        clock.tick(logic.constants.FPS)
     pygame.display.flip()
 
 # ------------------------------------------------------
