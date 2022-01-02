@@ -10,21 +10,30 @@ screen, clock = init(logic.constants.SIZE)
 start_screen(screen, clock)
 load_menu(screen, clock)
 running = True
-
+fon = load_fon(logic.constants.BACKGROUND_1level, screen)
 player, level_x, level_y = generate_level(load_level('level1.txt'))
 jump_stage = logic.constants.JUMP_VALUE
 while running:
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_LEFT]:
-        if player.is_jump():
-            player.move(-logic.constants.STEP * 5, 0)
+    if player.is_jump():
+        player.next_jump_stage(jump_stage)
+        if jump_stage >= -logic.constants.JUMP_VALUE:
+            player.set_jump()
+            jump_stage = logic.constants.JUMP_VALUE
         else:
-            player.move(-logic.constants.STEP, 0)
+            jump_stage += 1
     if keys[pygame.K_RIGHT]:
         if player.is_jump():
             player.move(logic.constants.STEP * 5, 0)
         else:
             player.move(logic.constants.STEP, 0)
+    if keys[pygame.K_LEFT]:
+
+        if player.is_jump():
+            player.move(-logic.constants.STEP * 5, 0)
+        else:
+            player.move(-logic.constants.STEP, 0)
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -38,28 +47,23 @@ while running:
             #     player.move(-STEP, 0)
             # if event.key == pygame.K_RIGHT:
             #     player.move(STEP, 0)
-    if player.is_jump():
-        player.next_jump_stage(jump_stage)
-        if jump_stage >= -logic.constants.JUMP_VALUE:
-            player.set_jump()
-            jump_stage = logic.constants.JUMP_VALUE
-        else:
-            jump_stage += 1
-    screen.fill('black')
-    screen.fill("White", (0, 500, logic.constants.WIDTH, 10))
 
-    load_fon(logic.constants.BACKGROUND_1level, screen)
+    screen.fill('#131963')
 
+
+
+    screen.blit(fon, (0, 0))
     all_sprites.draw(screen)
     all_sprites.update()
     tiles_group.draw(screen)
     tiles_group.update()
     player_group.draw(screen)
     player_group.update()
-    pygame.display.flip()
+
     if player.is_jump():
         clock.tick(60)
     else:
         clock.tick(logic.constants.FPS)
+    pygame.display.flip()
 
 # ------------------------------------------------------

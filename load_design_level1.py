@@ -8,8 +8,8 @@ from logic.player import *
 
 def load_fon(fon_name, screen):
     fon = pygame.transform.scale(load_image(fon_name), logic.constants.SIZE)
-    screen.fill("White")
-    screen.blit(fon, (0, 0))
+    return fon
+
 
 
 def load_level(filename):

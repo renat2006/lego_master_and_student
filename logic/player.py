@@ -25,8 +25,7 @@ class Player(pygame.sprite.Sprite):
         self.screen = surface
 
     def move(self, x, y):
-        self.rect.x += x
-        self.rect.y += y
+        self.rect = self.rect.move(x, y)
 
     def set_jump(self):
         if self.is_jump():
@@ -41,4 +40,4 @@ class Player(pygame.sprite.Sprite):
 
     def next_jump_stage(self, jump_stage):
         self.move(0, jump_stage)
-        pygame.time.delay(15)
+        #pygame.time.delay(15)
