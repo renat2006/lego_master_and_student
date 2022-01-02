@@ -49,10 +49,10 @@ while running:
 
     player_group.update()
     player_group.draw(screen)
-    # if player.is_jump():
-    #     clock.tick(60)
-    # else:
-    clock.tick(logic.constants.FPS)
+    if player.is_jump():
+        clock.tick(60)
+    else:
+        clock.tick(logic.constants.FPS)
     pygame.display.update()
 
 # ------------------------------------------------------
