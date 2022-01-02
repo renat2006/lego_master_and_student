@@ -1,7 +1,7 @@
 import pygame
 
 from logic.load_image import *
-from logic.constants import PLAYER_IMAGE_PATH, JUMP_VALUE, STEP
+import logic.constants
 
 # Код Димы--------------------------------------
 player_group = pygame.sprite.Group()
@@ -10,18 +10,17 @@ player_group = pygame.sprite.Group()
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__(player_group)
-        self.image = load_image(PLAYER_IMAGE_PATH, -1)
+        player_image = load_image(logic.constants.PLAYER_IMAGE_PATH)
+        self.image = player_image
+        self.image = pygame.transform.scale(self.image, (70, 70))
         self.clock = pygame.time.Clock()
-
-        self.pos_x = x
-        self.pos_y = y
+        self.pos_x = x * logic.constants.player_width
+        self.pos_y = y * logic.constants.player_height
         self.player_width = self.image.get_rect().width
         self.player_height = self.image.get_rect().height
         self.rect = self.image.get_rect().move(
             self.pos_x, self.pos_y)
-
         self.jumping = False
-
     def link_to_surface(self, surface):
         self.screen = surface
 

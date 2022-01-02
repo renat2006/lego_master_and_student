@@ -12,19 +12,19 @@ load_menu(screen, clock)
 running = True
 
 player, level_x, level_y = generate_level(load_level('level1.txt'))
-jump_stage = JUMP_VALUE
+jump_stage = logic.constants.JUMP_VALUE
 while running:
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT]:
         if player.is_jump():
-            player.move(-STEP * 5, 0)
+            player.move(-logic.constants.STEP * 5, 0)
         else:
-            player.move(-STEP, 0)
+            player.move(-logic.constants.STEP, 0)
     if keys[pygame.K_RIGHT]:
         if player.is_jump():
-            player.move(STEP * 5, 0)
+            player.move(logic.constants.STEP * 5, 0)
         else:
-            player.move(STEP, 0)
+            player.move(logic.constants.STEP, 0)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -40,9 +40,9 @@ while running:
             #     player.move(STEP, 0)
     if player.is_jump():
         player.next_jump_stage(jump_stage)
-        if jump_stage >= -JUMP_VALUE:
+        if jump_stage >= -logic.constants.JUMP_VALUE:
             player.set_jump()
-            jump_stage = JUMP_VALUE
+            jump_stage = logic.constants.JUMP_VALUE
         else:
             jump_stage += 1
     screen.fill('black')
