@@ -6,7 +6,7 @@ import pygame
 #код Айгуль----------
 
 def load_fon(fon_name, screen):
-    fon = pygame.transform.scale(load_image(fon_name), (1400, 840))
+    fon = pygame.transform.scale(load_image(fon_name), logic.constants.SIZE)
     screen.fill("White")
     screen.blit(fon, (0, 0))
 
