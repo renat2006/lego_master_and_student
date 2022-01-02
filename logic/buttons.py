@@ -1,13 +1,13 @@
 import pygame
 
 from logic.imports import *
-from logic.constants import *
+import logic.constants
 
 
 class Buttons:
     def __init__(self, b_text, color, pos):
         self.text = b_text
-        self.font = pygame.font.Font(FONT_PATH, 50)
+        self.font = pygame.font.Font(logic.constants.FONT_PATH, logic.constants.MAIN_TEXT_SIZE)
         self.text = self.font.render(b_text, True, color)
         self.pos_x = pos[0]
         self.pos_y = pos[1]
