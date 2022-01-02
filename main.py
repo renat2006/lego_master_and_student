@@ -47,12 +47,19 @@ while running:
     screen.fill('black')
     screen.fill("White", (0, 500, logic.constants.WIDTH, 10))
 
-    player_group.update()
-    player_group.draw(screen)
+
     if player.is_jump():
         clock.tick(60)
     else:
         clock.tick(logic.constants.FPS)
+    load_fon(logic.constants.BACKGROUND_1level, screen)
+
+    all_sprites.draw(screen)
+    all_sprites.update()
+    tiles_group.draw(screen)
+    tiles_group.update()
+    player_group.draw(screen)
+    player_group.update()
     pygame.display.flip()
 
 # ------------------------------------------------------
