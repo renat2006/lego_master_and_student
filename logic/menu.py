@@ -11,7 +11,7 @@ from pygame.rect import Rect
 from logic.text import *
 from logic.sett_fon import *
 from logic.input_field import *
-
+from logic.cursor import set_cursor
 
 class Settings:
     def __init__(self, screen):
@@ -71,6 +71,8 @@ class Settings:
 
 # Код Рената --------------------------------------
 def load_menu(screen, clock):
+    cursor,  cursor_img_rect = set_cursor()
+
     btn_colors = [0, 0, 0]
     logo_image = pygame.transform.scale(load_image(logic.constants.LOGO_PATH),
                                         (logic.constants.LOGO_SIZE[0] * logic.constants.SCREEN_CONST,
@@ -95,6 +97,8 @@ def load_menu(screen, clock):
     while True:
         screen.fill('white')
         screen.blit(logo_image, logo_center)
+        cursor_img_rect.center = pygame.mouse.get_pos()
+
         events = pygame.event.get()
         settings.input_fields[active_input_field].textinput.update(events)
 
@@ -143,4 +147,5 @@ def load_menu(screen, clock):
             screen.blit(button.text, (button.pos_x, button.pos_y))
         if is_opened_set:
             settings.draw()
+        screen.blit(cursor, cursor_img_rect)
         pygame.display.flip()

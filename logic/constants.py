@@ -8,6 +8,7 @@ MENU_FON_PATH = 'data/menu_fon.png'
 PLAYER_IMAGE_PATH = 'data/player.png'
 FONT_PATH = 'data/fonts/pixel.ttf'
 LOGO_PATH = 'data/logo/logo.png'
+CURSOR_PATH = 'data/cursor/cursor9.png'
 LOGO_SIZE = 411, 83
 BTN_COLOR = ['black', 'red']
 STEP = 1
