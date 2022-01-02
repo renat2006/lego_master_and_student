@@ -3,6 +3,7 @@ from logic.load_image import *
 import logic.constants
 from logic.term import terminate
 from logic.buttons import Buttons
+from logic.start_screen import *
 
 # Код Рената --------------------------------------
 def load_menu(screen, clock):
@@ -20,8 +21,9 @@ def load_menu(screen, clock):
     while True:
         screen.fill('black')
         fon = pygame.transform.scale(load_image(logic.constants.MENU_FON_PATH), (logic.constants.SIZE))
-
         screen.blit(fon, (0, 0))
+        cursor_rect.center = pygame.mouse.get_pos()  # update position
+        screen.blit(cursor, cursor_rect)
         for event in pygame.event.get():
             btn_colors = [0, 0, 0]
             if event.type == pygame.QUIT:

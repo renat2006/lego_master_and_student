@@ -8,6 +8,9 @@ from load_design_level1 import *
 screen, clock = init(logic.constants.SIZE)
 start_screen(screen, clock)
 load_menu(screen, clock)
+player_image = load_image(logic.constants.PLAYER_IMAGE_PATH)
+
+
 running = True
 jumping = False
 player, level_x, level_y = generate_level(load_level('level1.txt'))
@@ -48,6 +51,8 @@ while running:
                 player.move(logic.constants.STEP, 0)
 
     load_fon(logic.constants.BACKGROUND_1level, screen)
+    cursor_rect.center = pygame.mouse.get_pos()  # update position
+    screen.blit(cursor, cursor_rect)
 
     all_sprites.draw(screen)
     all_sprites.update()

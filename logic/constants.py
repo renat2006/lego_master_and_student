@@ -6,6 +6,7 @@ PLAYER_IMAGE_PATH = "data/player.png"
 BTN_COLOR = ['black', 'red']
 STEP = 25
 BACKGROUND_1level = "data/fon_city.png"
+CURSOR_IMG = 'data/cursor.png'
 tile_width = tile_height = 70
 
 tile_images = {
