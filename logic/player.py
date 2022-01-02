@@ -8,13 +8,13 @@ player_group = pygame.sprite.Group()
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos):
+    def __init__(self, x, y):
         super().__init__(player_group)
         self.image = load_image(PLAYER_IMAGE_PATH, -1)
         self.clock = pygame.time.Clock()
 
-        self.pos_x = pos[0]
-        self.pos_y = pos[1]
+        self.pos_x = x
+        self.pos_y = y
         self.player_width = self.image.get_rect().width
         self.player_height = self.image.get_rect().height
         self.rect = self.image.get_rect().move(

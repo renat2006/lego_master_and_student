@@ -10,7 +10,7 @@ screen, clock = init(logic.constants.SIZE)
 start_screen(screen, clock)
 load_menu(screen, clock)
 running = True
-player = Player((5, 400))
+
 player, level_x, level_y = generate_level(load_level('level1.txt'))
 jump_stage = JUMP_VALUE
 while running:
