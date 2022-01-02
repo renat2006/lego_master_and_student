@@ -24,13 +24,13 @@ while running:
             jump_stage += 1
     if keys[pygame.K_RIGHT]:
         if player.is_jump():
-            player.move(logic.constants.STEP * 5, 0)
+            player.move(logic.constants.STEP * 1.5, 0)
         else:
             player.move(logic.constants.STEP, 0)
     if keys[pygame.K_LEFT]:
 
         if player.is_jump():
-            player.move(-logic.constants.STEP * 5, 0)
+            player.move(-logic.constants.STEP * 1.5, 0)
         else:
             player.move(-logic.constants.STEP, 0)
 
@@ -60,10 +60,8 @@ while running:
     player_group.draw(screen)
     player_group.update()
 
-    if player.is_jump():
-        clock.tick(60)
-    else:
-        clock.tick(logic.constants.FPS)
+
+    clock.tick(60)
     pygame.display.flip()
 
 # ------------------------------------------------------

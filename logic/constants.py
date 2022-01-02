@@ -11,7 +11,7 @@ LOGO_PATH = 'data/logo/logo.png'
 CURSOR_PATH = 'data/cursor/cursor9.png'
 LOGO_SIZE = 411, 83
 BTN_COLOR = ['black', 'red']
-STEP = 20
+STEP = 1
 BACKGROUND_1level = "data/fon_city.png"
 CURSOR_IMG = 'data/cursor.png'
 tile_width = tile_height = 70
@@ -22,5 +22,5 @@ tile_images = {
     'empty': None,
     'plate': 'data/plate.png'
 }
-STEP = 1
+STEP = 4
 JUMP_VALUE = -15
