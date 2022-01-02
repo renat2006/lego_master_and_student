@@ -42,4 +42,4 @@ class Player(pygame.sprite.Sprite):
 
     def next_jump_stage(self, jump_stage):
         self.move(0, jump_stage)
-        pygame.time.delay(15)
+        # pygame.time.delay(15)
