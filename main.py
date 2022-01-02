@@ -8,13 +8,10 @@ from load_design_level1 import *
 screen, clock = init(logic.constants.SIZE)
 start_screen(screen, clock)
 load_menu(screen, clock)
-player_image = load_image(logic.constants.PLAYER_IMAGE_PATH)
-
 
 running = True
 jumping = False
 player, level_x, level_y = generate_level(load_level('level1.txt'))
-
 
 # Код Димы ------------------------------------
 def jump(obj):
@@ -56,10 +53,10 @@ while running:
 
     all_sprites.draw(screen)
     all_sprites.update()
-    player_group.draw(screen)
-    player_group.update()
     tiles_group.draw(screen)
     tiles_group.update()
+    player_group.draw(screen)
+    player_group.update()
 
     pygame.display.flip()
 

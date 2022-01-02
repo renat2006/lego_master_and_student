@@ -2,6 +2,7 @@ import logic.load_image
 import logic.constants
 from generate_level import *
 import pygame
+from logic.player import *
 
 #код Айгуль----------
 
@@ -27,5 +28,5 @@ def generate_level(level):
             elif level[y][x] == '-':
                 Tile('plate', x, y)
             elif level[y][x] == '@':
-                new_player = Player(logic.constants.PLAYER_IMAGE_PATH, (x, y))
+                new_player = Player(x, y)
     return new_player, x, y

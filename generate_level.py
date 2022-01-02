@@ -1,14 +1,9 @@
 import pygame.transform
-
 from logic.player import *
 import logic.constants
 
 #код Айгуль--------
 
-player = pygame.image.load(logic.constants.PLAYER_IMAGE_PATH)
-player_image = pygame.transform.scale(player, (70, 70))
-# основной персонаж
-player = None
 
 # группы спрайтов
 all_sprites = pygame.sprite.Group()
