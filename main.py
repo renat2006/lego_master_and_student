@@ -12,7 +12,6 @@ load_menu(screen, clock)
 running = True
 player = Player((5, 400))
 
-# Код Димы --------------------------------------
 jump_stage = JUMP_VALUE
 while running:
     keys = pygame.key.get_pressed()
@@ -49,11 +48,6 @@ while running:
     screen.fill('black')
     screen.fill("White", (0, 500, logic.constants.WIDTH, 10))
 
-
-    if player.is_jump():
-        clock.tick(60)
-    else:
-        clock.tick(logic.constants.FPS)
     load_fon(logic.constants.BACKGROUND_1level, screen)
 
     all_sprites.draw(screen)
@@ -63,5 +57,9 @@ while running:
     player_group.draw(screen)
     player_group.update()
     pygame.display.flip()
+    if player.is_jump():
+        clock.tick(60)
+    else:
+        clock.tick(logic.constants.FPS)
 
 # ------------------------------------------------------
