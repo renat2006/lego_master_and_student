@@ -1,3 +1,5 @@
+from generate_level import tiles_group, all_sprites
+from load_design_level1 import load_fon
 from logic.screen_and_init import *
 from logic.start_screen import *
 from logic.menu import *
