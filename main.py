@@ -1,5 +1,5 @@
 from generate_level import tiles_group, all_sprites
-from load_design_level1 import load_fon
+from load_design_level1 import load_fon, generate_level, load_level
 from logic.screen_and_init import *
 from logic.start_screen import *
 from logic.menu import *
@@ -11,7 +11,7 @@ start_screen(screen, clock)
 load_menu(screen, clock)
 running = True
 player = Player((5, 400))
-
+player, level_x, level_y = generate_level(load_level('level1.txt'))
 jump_stage = JUMP_VALUE
 while running:
     keys = pygame.key.get_pressed()
