@@ -17,6 +17,7 @@ player, level_x, level_y, tiles = generate_level(load_level('level1.txt'))
 jump_stage = logic.constants.JUMP_VALUE
 while running:
     keys = pygame.key.get_pressed()
+    player.set_idle()
     if keys[pygame.K_SPACE]:
         if not player.is_jump():
             player.set_jump()
@@ -32,14 +33,20 @@ while running:
     if keys[pygame.K_RIGHT]:
         if player.is_jump():
             player.move(logic.constants.STEP * 1.5, 0)
+            player.curr_jump = player.jump
         else:
             player.move(logic.constants.STEP, 0)
+            player.frames = player.frames_normal
+
     if keys[pygame.K_LEFT]:
 
         if player.is_jump():
             player.move(-logic.constants.STEP * 1.5, 0)
+            player.curr_jump = player.jump_fliped
         else:
             player.move(-logic.constants.STEP, 0)
+            player.frames = player.frames_flipped
+
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
