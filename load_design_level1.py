@@ -4,12 +4,13 @@ from generate_level import *
 import pygame
 from logic.player import *
 
-#код Айгуль----------
 
-def load_fon(fon_name, screen):
+# код Айгуль----------
+
+def load_fon(fon_name, moon_name, screen):
     fon = pygame.transform.scale(load_image(fon_name), logic.constants.SIZE)
-    return fon
-
+    moon = pygame.transform.scale(load_image(moon_name), logic.constants.SIZE)
+    return fon, moon
 
 
 def load_level(filename):
@@ -20,13 +21,13 @@ def load_level(filename):
 
 
 def generate_level(level):
-    new_player, x, y = None, None, None
+    new_player, x, y, tiles = None, None, None, []
     for y in range(len(level)):
         for x in range(len(level[y])):
             if level[y][x] == '#':
-                Tile('wall', x, y)
+                tiles.append(Tile('wall', x, y))
             elif level[y][x] == '-':
-                Tile('plate', x, y)
+                tiles.append(Tile('plate', x, y))
             elif level[y][x] == '@':
-                new_player = Player(x, y)
-    return new_player, x, y
+                new_player = Player(x, y, load_image(logic.constants.PLAYER_IMAGE_PATH), 3, 3)
+    return new_player, x, y, tiles

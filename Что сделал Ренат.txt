@@ -7,3 +7,4 @@ sett_fon.py
 text.py
 buttons.py
 screen_and_init.py
+player.py анимация персонажа
