@@ -57,8 +57,6 @@ while running:
 
     screen.blit(fon, (0, 0))
 
-    all_sprites.draw(screen)
-    all_sprites.update()
     tiles_group.draw(screen)
     tiles_group.update()
     player_group.draw(screen)
