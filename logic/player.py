@@ -12,8 +12,6 @@ class Player(pygame.sprite.Sprite):
         super().__init__(player_group)
         player_image = load_image(logic.constants.PLAYER_IMAGE_PATH)
         self.image = player_image
-        self.image = pygame.transform.scale(self.image, (70, 70))
-        self.clock = pygame.time.Clock()
         self.pos_x = x * logic.constants.player_width
         self.pos_y = y * logic.constants.player_height
         self.player_width = self.image.get_rect().width
@@ -40,4 +38,7 @@ class Player(pygame.sprite.Sprite):
 
     def next_jump_stage(self, jump_stage):
         self.move(0, jump_stage)
-        #pygame.time.delay(15)
+    def gravity(self):
+        self.move(0, 9.8)
+
+

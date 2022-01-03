@@ -15,6 +15,9 @@ player, level_x, level_y = generate_level(load_level('level1.txt'))
 jump_stage = logic.constants.JUMP_VALUE
 while running:
     keys = pygame.key.get_pressed()
+    if keys[pygame.K_SPACE]:
+        if not player.is_jump():
+            player.set_jump()
     if player.is_jump():
         player.next_jump_stage(jump_stage)
         if jump_stage >= -logic.constants.JUMP_VALUE:
@@ -22,6 +25,7 @@ while running:
             jump_stage = logic.constants.JUMP_VALUE
         else:
             jump_stage += 1
+
     if keys[pygame.K_RIGHT]:
         if player.is_jump():
             player.move(logic.constants.STEP * 1.5, 0)
@@ -40,9 +44,7 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 running = False
-            if event.key == pygame.K_SPACE:
-                if not player.is_jump():
-                    player.set_jump()
+
             # if event.key == pygame.K_LEFT:
             #     player.move(-STEP, 0)
             # if event.key == pygame.K_RIGHT:
