@@ -4,6 +4,7 @@ from logic.term import *
 import logic.constants
 
 
+# Код Рената --------------------------------------
 def start_screen(screen, clock):
     intro_text = ['']
 
@@ -22,7 +23,7 @@ def start_screen(screen, clock):
 
     while True:
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
                 terminate()
             elif event.type == pygame.KEYDOWN or \
                     event.type == pygame.MOUSEBUTTONDOWN:
