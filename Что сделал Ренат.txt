@@ -1,0 +1,9 @@
+menu.py
+input_field.py
+cursor.py
+main.py
+start_screen.py
+sett_fon.py
+text.py
+buttons.py
+screen_and_init.py
