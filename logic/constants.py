@@ -14,6 +14,7 @@ BTN_COLOR = ['black', 'red']
 STEP = 4
 JUMP_VALUE = -15
 BACKGROUND_1level = "data/fon_city.png"
+MOON_1level = "data/moon.png"
 CURSOR_IMG = 'data/cursor.png'
 tile_width = tile_height = 70
 player_width = 56

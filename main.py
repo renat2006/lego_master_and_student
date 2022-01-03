@@ -12,7 +12,7 @@ screen, clock = init(logic.constants.SIZE)
 start_screen(screen, clock)
 load_menu(screen, clock)
 running = True
-fon = load_fon(logic.constants.BACKGROUND_1level, screen)
+fon, moon = load_fon(logic.constants.BACKGROUND_1level, logic.constants.MOON_1level, screen)
 player, level_x, level_y, tiles = generate_level(load_level('level1.txt'))
 jump_stage = logic.constants.JUMP_VALUE
 while running:
@@ -53,9 +53,10 @@ while running:
             # if event.key == pygame.K_RIGHT:
             #     player.move(STEP, 0)
 
-    screen.fill('#131963')
+    screen.fill('#202020')
 
     screen.blit(fon, (0, 0))
+
     all_sprites.draw(screen)
     all_sprites.update()
     tiles_group.draw(screen)

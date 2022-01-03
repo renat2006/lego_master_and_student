@@ -7,9 +7,10 @@ from logic.player import *
 
 # код Айгуль----------
 
-def load_fon(fon_name, screen):
+def load_fon(fon_name, moon_name, screen):
     fon = pygame.transform.scale(load_image(fon_name), logic.constants.SIZE)
-    return fon
+    moon = pygame.transform.scale(load_image(moon_name), logic.constants.SIZE)
+    return fon, moon
 
 
 def load_level(filename):
