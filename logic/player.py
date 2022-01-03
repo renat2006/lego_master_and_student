@@ -16,9 +16,13 @@ class Player(pygame.sprite.Sprite):
         self.pos_y = y * logic.constants.player_height
         self.player_width = self.image.get_rect().width
         self.player_height = self.image.get_rect().height
+        self.mask = pygame.mask.from_surface(self.image)
+
+        self.jumping = False
+        self.add(player_group)
         self.rect = self.image.get_rect().move(
             self.pos_x, self.pos_y)
-        self.jumping = False
+
     def link_to_surface(self, surface):
         self.screen = surface
 
@@ -38,7 +42,6 @@ class Player(pygame.sprite.Sprite):
 
     def next_jump_stage(self, jump_stage):
         self.move(0, jump_stage)
+
     def gravity(self):
         self.move(0, 9.8)
-
-

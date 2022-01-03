@@ -1,3 +1,5 @@
+import pygame.sprite
+
 from generate_level import tiles_group, all_sprites
 from load_design_level1 import load_fon, generate_level, load_level
 from logic.screen_and_init import *
@@ -11,7 +13,7 @@ start_screen(screen, clock)
 load_menu(screen, clock)
 running = True
 fon = load_fon(logic.constants.BACKGROUND_1level, screen)
-player, level_x, level_y = generate_level(load_level('level1.txt'))
+player, level_x, level_y, tiles = generate_level(load_level('level1.txt'))
 jump_stage = logic.constants.JUMP_VALUE
 while running:
     keys = pygame.key.get_pressed()
@@ -24,6 +26,7 @@ while running:
             player.set_jump()
             jump_stage = logic.constants.JUMP_VALUE
         else:
+
             jump_stage += 1
 
     if keys[pygame.K_RIGHT]:
@@ -52,8 +55,6 @@ while running:
 
     screen.fill('#131963')
 
-
-
     screen.blit(fon, (0, 0))
     all_sprites.draw(screen)
     all_sprites.update()
@@ -61,7 +62,6 @@ while running:
     tiles_group.update()
     player_group.draw(screen)
     player_group.update()
-
 
     clock.tick(60)
     pygame.display.flip()
