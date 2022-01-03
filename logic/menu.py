@@ -12,7 +12,7 @@ from logic.text import *
 from logic.sett_fon import *
 from logic.input_field import *
 from logic.cursor import set_cursor
-#Код Рената-----------------------------------------
+#Код Рената----------------------------------------
 class Settings:
     def __init__(self, screen):
         self.screen = screen
