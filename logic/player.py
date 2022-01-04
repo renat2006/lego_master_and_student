@@ -1,19 +1,26 @@
 import pygame
+from pygame.rect import Rect
 
 from logic.load_image import *
 import logic.constants
+import sys
+
+sys.path.insert(0, "../")
+from generate_level import *
 
 # Код Димы--------------------------------------
 player_group = pygame.sprite.Group()
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, x, y, sheet, columns, rows):
+    def __init__(self, x, y):
         super().__init__(player_group)
+        self.screen = None
+        self.direction = 1
         self.idle = load_image(logic.constants.PLAYER_IMAGE_PATH)
+        self.idle_flipped = pygame.transform.flip(load_image(logic.constants.PLAYER_IMAGE_PATH), True, False)
         self.jump = load_image(logic.constants.PLAYER_JUMP_IMAGE_PATH)
         self.jump_fliped = pygame.transform.flip(load_image(logic.constants.PLAYER_JUMP_IMAGE_PATH), True, False)
-        self.curr_jump = self.jump
         self.image = self.idle
         self.frames_normal = []
         self.frames_flipped = []
@@ -24,7 +31,7 @@ class Player(pygame.sprite.Sprite):
         for i in r_name:
             self.frames_flipped.append(
                 pygame.transform.flip(load_image(logic.constants.PLAYER_RUN_IMAGE_PATH + i), True, False))
-        self.frames = self.frames_normal
+
         self.cur_frame = 0
 
         self.pos_x = x * logic.constants.player_width
@@ -43,8 +50,13 @@ class Player(pygame.sprite.Sprite):
 
     def move(self, x, y):
         if self.jumping is False:
-            self.cur_frame = (self.cur_frame + 1) % len(self.frames)
-            self.image = self.frames[self.cur_frame]
+            if self.direction == 1:
+                self.cur_frame = (self.cur_frame + 1) % len(self.frames_normal)
+                self.image = self.frames_normal[self.cur_frame]
+
+            elif self.direction == -1:
+                self.cur_frame = (self.cur_frame + 1) % len(self.frames_flipped)
+                self.image = self.frames_flipped[self.cur_frame]
         self.rect = self.rect.move(x, y)
 
     def set_jump(self):
@@ -55,7 +67,10 @@ class Player(pygame.sprite.Sprite):
 
     def is_jump(self, jump=False):
         if self.jumping:
-            self.image = self.curr_jump
+            if self.direction == 1:
+                self.image = self.jump
+            elif self.direction == -1:
+                self.image = self.jump_fliped
             return True
         return False
 
@@ -63,7 +78,25 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.rect.move(0, jump_stage)
 
     def gravity(self):
-        self.move(0, 9.8)
+        self.rect = self.rect.move(0, 9.8)
 
     def set_idle(self):
-        self.image = self.idle
+        if self.direction == 1:
+            self.image = self.idle
+        elif self.direction == -1:
+            self.image = self.idle_flipped
+
+    def draw_block(self, block_image):
+        block_image = pygame.transform.scale(block_image, (block_image.get_height() // 3, block_image.get_width() // 3))
+        self.block_rect = self.rect.right + 20, self.rect.top + (self.rect.height - block_image.get_height() // 3) // 2
+        if self.direction == 1:
+            self.screen.blit(block_image, self.block_rect
+                             )
+        elif self.direction == -1:
+            self.screen.blit(block_image, self.block_rect)
+
+    def set_block(self, block_image):
+        self.block_rect = (
+        self.rect.right + 20, self.rect.top + (self.rect.height - block_image.get_height() // 3) // 2)
+        Tile('wall', self.block_rect[0] // logic.constants.tile_width,
+             self.block_rect[1] // logic.constants.tile_height)

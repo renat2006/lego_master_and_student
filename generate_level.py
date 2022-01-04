@@ -1,5 +1,4 @@
 import pygame.transform
-from logic.player import *
 import logic.constants
 
 # код Айгуль--------
