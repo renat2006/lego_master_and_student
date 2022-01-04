@@ -12,7 +12,9 @@ from logic.text import *
 from logic.sett_fon import *
 from logic.input_field import *
 from logic.cursor import set_cursor
-#Код Рената----------------------------------------
+
+
+# Код Рената----------------------------------------
 class Settings:
     def __init__(self, screen):
         self.screen = screen
@@ -32,7 +34,12 @@ class Settings:
                                          (self.set_fon.rect.width // 1.2,
                                           self.set_fon.rect.y + 150),
                                          "(input.isnumeric() and 0 < int(input) <= logic.constants.HEIGHT) or input == ''",
-                                         logic.constants.HEIGHT)
+                                         logic.constants.HEIGHT),
+                             Input_Field(logic.constants.HEADING_FONT_SIZE, 'blue', 4, 400, 'blue',
+                                         (self.set_fon.rect.width // 1.2,
+                                          self.set_fon.rect.y + 300),
+                                         "(input.isdigit() and 0 <= int(input) <= 100) or input == ''",
+                                         int(pygame.mixer.music.get_volume() * 100))
                              ]
 
         self.settings_texts = [
@@ -47,7 +54,11 @@ class Settings:
                 0].border_rect.right) // 2,
                                                        self.input_fields[0].rect.y + self.input_fields[
                                                            0].rect.height // 2),
-                 'blue')
+                 'blue'),
+            Text('Громкость музыки', logic.constants.MAIN_TEXT_SIZE,
+                 (self.set_fon.rect.x + 260,
+                  self.set_fon.rect.y + 300),
+                 'black')
 
         ]
         self.settings_buttons = [
@@ -71,7 +82,7 @@ class Settings:
 
 # Код Рената --------------------------------------
 def load_menu(screen, clock):
-    cursor,  cursor_img_rect = set_cursor()
+    cursor, cursor_img_rect = set_cursor()
 
     btn_colors = [0, 0, 0]
     logo_image = pygame.transform.scale(load_image(logic.constants.LOGO_PATH),
@@ -131,8 +142,9 @@ def load_menu(screen, clock):
                                                                                                 int(
                                                                                                     settings.input_fields[
                                                                                                         1].textinput.value))
-
-                        logic.screen_and_init.init(logic.constants.SIZE)
+                        print(int(settings.input_fields[2].textinput.value) / 100)
+                        logic.screen_and_init.init(logic.constants.SIZE,
+                                                   int(settings.input_fields[2].textinput.value) / 100)
                         load_menu(screen, clock)
                         return
 

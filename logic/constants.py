@@ -11,10 +11,12 @@ PLAYER_JUMP_IMAGE_PATH = 'data/character/jump.png'
 FONT_PATH = 'data/fonts/pixel.ttf'
 LOGO_PATH = 'data/logo/logo.png'
 CURSOR_PATH = 'data/cursor/cursor9.png'
+MUSIC_PATH = 'data/music/fon_music1.mp3'
+JUMP_SOUND = 'data/music/jump.mp3'
 LOGO_SIZE = 411, 83
 BTN_COLOR = ['black', 'red']
 STEP = 4
-JUMP_VALUE = -15
+JUMP_VALUE = -17
 BACKGROUND_1level = "data/fon_city.png"
 MOON_1level = "data/moon.png"
 CURSOR_IMG = 'data/cursor.png'
@@ -26,5 +28,7 @@ tile_images = {
     'empty': None,
     'plate': 'data/plate.png'
 }
-
+BOX_CHAR = 'data/box_char.png'
+INVENTORY_HEIGHT = 120
+INVENTORY_COLUMNS = 5
 
