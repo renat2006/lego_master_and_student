@@ -3,63 +3,56 @@ from logic.start_screen import *
 from logic.menu import *
 import logic.constants
 from logic.player import *
-from load_design_level1 import *
 
 screen, clock = init(logic.constants.SIZE)
 start_screen(screen, clock)
 load_menu(screen, clock)
-
 running = True
-jumping = False
-player, level_x, level_y = generate_level(load_level('level1.txt'))
+player = Player((5, 400))
 
-# Код Димы ------------------------------------
-def jump(obj):
-    space = -15
-    while space <= 15:
-        obj.move(0, space)
-        space += 1
-        screen.fill("Black")
-        screen.fill("White", (0, 500, logic.constants.WIDTH, 10))
-        obj.update()
-        player_group.draw(screen)
-        pygame.time.delay(20)
-
-        pygame.display.flip()
-#-------------------------------------------------
-
-# Код Рената --------------------------------------
-
+# Код Димы --------------------------------------
+jump_stage = JUMP_VALUE
 while running:
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+        if player.is_jump():
+            player.move(-STEP * 5, 0)
+        else:
+            player.move(-STEP, 0)
+    if keys[pygame.K_RIGHT]:
+        if player.is_jump():
+            player.move(STEP * 5, 0)
+        else:
+            player.move(STEP, 0)
     for event in pygame.event.get():
-
         if event.type == pygame.QUIT:
             running = False
-        elif event.type == pygame.KEYDOWN:
+        if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 running = False
-            # Код Димы --------------------------------------
             if event.key == pygame.K_SPACE:
-                jump(player)
+                if not player.is_jump():
+                    player.set_jump()
+            # if event.key == pygame.K_LEFT:
+            #     player.move(-STEP, 0)
+            # if event.key == pygame.K_RIGHT:
+            #     player.move(STEP, 0)
+    if player.is_jump():
+        player.next_jump_stage(jump_stage)
+        if jump_stage >= -JUMP_VALUE:
+            player.set_jump()
+            jump_stage = JUMP_VALUE
+        else:
+            jump_stage += 1
+    screen.fill('black')
+    screen.fill("White", (0, 500, logic.constants.WIDTH, 10))
 
-            if event.key == pygame.K_LEFT:
-                player.move(-logic.constants.STEP, 0)
-            if event.key == pygame.K_RIGHT:
-                player.move(logic.constants.STEP, 0)
-
-    load_fon(logic.constants.BACKGROUND_1level, screen)
-    cursor_rect.center = pygame.mouse.get_pos()  # update position
-    screen.blit(cursor, cursor_rect)
-
-    all_sprites.draw(screen)
-    all_sprites.update()
-    tiles_group.draw(screen)
-    tiles_group.update()
-    player_group.draw(screen)
     player_group.update()
-
+    player_group.draw(screen)
+    if player.is_jump():
+        clock.tick(60)
+    else:
+        clock.tick(logic.constants.FPS)
     pygame.display.flip()
 
-pygame.quit()
-
-#------------------------------------------------------
+# ------------------------------------------------------

@@ -4,8 +4,6 @@ from logic.term import *
 import logic.constants
 
 
-cursor = load_image(logic.constants.CURSOR_IMG)
-cursor_rect = cursor.get_rect()
 # Код Рената --------------------------------------
 def start_screen(screen, clock):
     intro_text = ['']
@@ -22,17 +20,13 @@ def start_screen(screen, clock):
         intro_rect.x = 10
         text_coord += intro_rect.height
         screen.blit(string_rendered, intro_rect)
-    pygame.mouse.set_visible(False)
 
     while True:
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
                 terminate()
             elif event.type == pygame.KEYDOWN or \
                     event.type == pygame.MOUSEBUTTONDOWN:
                 return  # начинаем игру
-        cursor_rect.center = pygame.mouse.get_pos()  # update position
-        screen.blit(fon, (0, 0))
-        screen.blit(cursor, cursor_rect)
         pygame.display.flip()
         clock.tick(logic.constants.FPS)
