@@ -12,6 +12,7 @@ FONT_PATH = 'data/fonts/pixel.ttf'
 LOGO_PATH = 'data/logo/logo.png'
 CURSOR_PATH = 'data/cursor/cursor9.png'
 MUSIC_PATH = 'data/music/fon_music1.mp3'
+JUMP_SOUND = 'data/music/jump.mp3'
 LOGO_SIZE = 411, 83
 BTN_COLOR = ['black', 'red']
 STEP = 4
@@ -27,5 +28,3 @@ tile_images = {
     'empty': None,
     'plate': 'data/plate.png'
 }
-
-

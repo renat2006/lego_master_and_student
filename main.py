@@ -15,11 +15,14 @@ running = True
 fon, moon = load_fon(logic.constants.BACKGROUND_1level, logic.constants.MOON_1level, screen)
 player, level_x, level_y, tiles = generate_level(load_level('level1.txt'))
 jump_stage = logic.constants.JUMP_VALUE
+jump_sound = pygame.mixer.Sound(logic.constants.JUMP_SOUND)
+jump_sound.set_volume(pygame.mixer.music.get_volume() * 2)
 while running:
     keys = pygame.key.get_pressed()
     player.set_idle()
     if keys[pygame.K_SPACE]:
         if not player.is_jump():
+            jump_sound.play()
             player.set_jump()
     if player.is_jump():
         player.next_jump_stage(jump_stage)
