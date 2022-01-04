@@ -11,6 +11,7 @@ PLAYER_JUMP_IMAGE_PATH = 'data/character/jump.png'
 FONT_PATH = 'data/fonts/pixel.ttf'
 LOGO_PATH = 'data/logo/logo.png'
 CURSOR_PATH = 'data/cursor/cursor9.png'
+MUSIC_PATH = 'data/music/fon_music1.mp3'
 LOGO_SIZE = 411, 83
 BTN_COLOR = ['black', 'red']
 STEP = 4
