@@ -16,7 +16,9 @@ class Inventory:
                 logic.constants.INVENTORY_HEIGHT + self.padding) + self.padding,
                          logic.constants.INVENTORY_HEIGHT)
         self.images = [load_image(logic.constants.tile_images['wall']),
-                       load_image(logic.constants.tile_images['plate'])]
+                       load_image(logic.constants.tile_images['plate']),
+                       load_image(logic.constants.tile_images['gun']),
+                       load_image(logic.constants.tile_images['triangle'])]
         self.colors = [0] * logic.constants.INVENTORY_COLUMNS
 
     def draw(self, keys):
