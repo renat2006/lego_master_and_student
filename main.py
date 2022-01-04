@@ -63,6 +63,8 @@ while running:
             if event.key == pygame.K_ESCAPE:
                 running = False
 
+
+
             # if event.key == pygame.K_LEFT:
             #     player.move(-STEP, 0)
             # if event.key == pygame.K_RIGHT:
@@ -76,6 +78,7 @@ while running:
     tiles_group.update()
     player_group.draw(screen)
     if block_texture:
+
         if pygame.mouse.get_pressed()[0]:
             player.set_block(block_texture)
         player.draw_block(block_texture)
