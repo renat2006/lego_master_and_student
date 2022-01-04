@@ -2,6 +2,8 @@ from logic.imports import *
 
 
 def load_image(name, color_key=None):
+    if name == 0:
+        return
     if not os.path.isfile(name):
         print(f"Файл с изображением '{name}' не найден")
         sys.exit()
