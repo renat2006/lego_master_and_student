@@ -46,7 +46,6 @@ while running:
         else:
             player.move(logic.constants.STEP, 0)
 
-
     if keys[pygame.K_LEFT]:
         player.direction = -1
         if player.is_jump():
@@ -55,7 +54,6 @@ while running:
         else:
             player.move(-logic.constants.STEP, 0)
 
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -63,12 +61,12 @@ while running:
             if event.key == pygame.K_ESCAPE:
                 running = False
 
-
-
-            # if event.key == pygame.K_LEFT:
-            #     player.move(-STEP, 0)
-            # if event.key == pygame.K_RIGHT:
-            #     player.move(STEP, 0)
+    player.rect.y += 5
+    hit_tiles = pygame.sprite.spritecollide(player, tiles_group, False)
+    for tile in hit_tiles:
+        if player.rect.x <= tile.rect.x + tile.rect.width \
+                and player.rect.x + player.rect.width >= tile.rect.x:
+            player.rect.y = tile.rect.y - player.rect.height
 
     screen.fill('#202020')
 
@@ -78,11 +76,9 @@ while running:
     tiles_group.update()
     player_group.draw(screen)
     if block_texture:
-
         if pygame.mouse.get_pressed()[0]:
             player.set_block(block_texture)
         player.draw_block(block_texture)
-
 
     clock.tick(60)
     pygame.display.flip()
