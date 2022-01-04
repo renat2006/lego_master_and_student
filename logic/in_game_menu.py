@@ -15,7 +15,7 @@ class Inventory:
         self.rect = Rect(self.pos_x, self.pos_y, logic.constants.INVENTORY_COLUMNS * (
                 logic.constants.INVENTORY_HEIGHT + self.padding) + self.padding,
                          logic.constants.INVENTORY_HEIGHT)
-        self.images = [load_image(logic.constants.tile_images['wall'])]
+        self.images = [load_image(logic.constants.tile_images['wall']), load_image(logic.constants.tile_images['plate'])]
         self.colors = ['black'] * logic.constants.INVENTORY_COLUMNS
 
     def draw(self, keys):
