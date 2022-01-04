@@ -25,7 +25,7 @@ while running:
 
     player.set_idle()
 
-    if keys[pygame.K_SPACE]:
+    if keys[pygame.K_SPACE] or keys[pygame.K_UP]:
         if not player.is_jump():
             jump_sound.play()
             player.set_jump()
@@ -38,7 +38,7 @@ while running:
 
             jump_stage += 1
 
-    if keys[pygame.K_RIGHT]:
+    if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
         player.direction = 1
         if player.is_jump():
             player.move(logic.constants.STEP * 1.5, 0)
@@ -46,8 +46,7 @@ while running:
         else:
             player.move(logic.constants.STEP, 0)
 
-
-    if keys[pygame.K_LEFT]:
+    if keys[pygame.K_LEFT] or keys[pygame.K_a]:
         player.direction = -1
         if player.is_jump():
             player.move(-logic.constants.STEP * 1.5, 0)
@@ -55,15 +54,12 @@ while running:
         else:
             player.move(-logic.constants.STEP, 0)
 
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 running = False
-
-
 
             # if event.key == pygame.K_LEFT:
             #     player.move(-STEP, 0)
@@ -79,10 +75,9 @@ while running:
     player_group.draw(screen)
     if block_texture:
 
-        if pygame.mouse.get_pressed()[0]:
+        if keys[pygame.K_f] or keys[pygame.K_s] or keys[pygame.K_DOWN]:
             player.set_block(block_texture)
         player.draw_block(block_texture)
-
 
     clock.tick(60)
     pygame.display.flip()

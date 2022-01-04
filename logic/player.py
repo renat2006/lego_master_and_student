@@ -97,6 +97,6 @@ class Player(pygame.sprite.Sprite):
 
     def set_block(self, block_image):
         self.block_rect = (
-        self.rect.right + 20, self.rect.top + (self.rect.height - block_image.get_height() // 3) // 2)
+            self.rect.right + 20, self.rect.top + (self.rect.height - block_image.get_height() // 3) // 2)
         Tile(block_image, self.block_rect[0] // logic.constants.tile_width,
              self.block_rect[1] // logic.constants.tile_height)
