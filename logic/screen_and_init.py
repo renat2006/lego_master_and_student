@@ -5,7 +5,7 @@ import logic.constants
 
 
 # Код Рената --------------------------------------
-def init(size, vol=0.5):
+def init(size, vol=0.1):
     pygame.mixer.pre_init(44100, -16, 1, 512)
 
     pygame.init()

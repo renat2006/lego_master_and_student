@@ -25,9 +25,9 @@ def generate_level(level):
     for y in range(len(level)):
         for x in range(len(level[y])):
             if level[y][x] == '#':
-                tiles.append(Tile('wall', x, y))
+                tiles.append(Tile('wall', x, y).rect)
             elif level[y][x] == '-':
-                tiles.append(Tile('plate', x, y))
+                tiles.append(Tile('plate', x, y).rect)
             elif level[y][x] == '@':
-                new_player = Player(x, y, load_image(logic.constants.PLAYER_IMAGE_PATH), 3, 3)
+                new_player = Player(x, y)
     return new_player, x, y, tiles
