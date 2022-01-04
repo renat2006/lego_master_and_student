@@ -26,7 +26,10 @@ player_height = 70
 tile_images = {
     'wall': 'data/box.png',
     'empty': None,
-    'plate': 'data/plate.png'
+    'plate': 'data/plate.png',
+    'triangle': 'data/block_triangle.png',
+    'gun': 'data/gun.png'
+
 }
 BOX_CHAR = 'data/box_char.png'
 INVENTORY_HEIGHT = 120
