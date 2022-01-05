@@ -20,24 +20,12 @@ jump_stage = logic.constants.JUMP_VALUE
 jump_sound = pygame.mixer.Sound(logic.constants.JUMP_SOUND)
 jump_sound.set_volume(pygame.mixer.music.get_volume() * 2)
 inventoty = Inventory(screen)
+is_collide = False
 while running:
     keys = pygame.key.get_pressed()
 
     player.set_idle()
-
-    if keys[pygame.K_SPACE] or keys[pygame.K_UP]:
-        if not player.is_jump():
-            jump_sound.play()
-            player.set_jump()
-    if player.is_jump():
-        player.next_jump_stage(jump_stage)
-        if jump_stage >= -logic.constants.JUMP_VALUE:
-            player.set_jump()
-            jump_stage = logic.constants.JUMP_VALUE
-        else:
-
-            jump_stage += 1
-
+    player_group.update(tiles)
     if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
         player.direction = 1
         if player.is_jump():
@@ -53,6 +41,18 @@ while running:
 
         else:
             player.move(-logic.constants.STEP, 0)
+    if keys[pygame.K_SPACE] or keys[pygame.K_UP]:
+        if not player.is_jump() and player.can_jump:
+            jump_sound.play()
+            player.set_jump()
+    if player.is_jump():
+        player.next_jump_stage(jump_stage)
+        if jump_stage >= -logic.constants.JUMP_VALUE:
+            player.set_jump()
+            jump_stage = logic.constants.JUMP_VALUE
+        else:
+
+            jump_stage += 1
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -73,10 +73,12 @@ while running:
     tiles_group.draw(screen)
     tiles_group.update()
     player_group.draw(screen)
+
     if block_texture:
 
         if keys[pygame.K_f] or keys[pygame.K_s] or keys[pygame.K_DOWN]:
-            player.set_block(block_texture)
+            block = player.set_block(block_texture)
+            tiles.append(block)
         player.draw_block(block_texture)
 
     clock.tick(60)

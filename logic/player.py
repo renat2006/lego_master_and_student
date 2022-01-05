@@ -24,7 +24,7 @@ class Player(pygame.sprite.Sprite):
         self.image = self.idle
         self.frames_normal = []
         self.frames_flipped = []
-
+        self.can_jump = True
         r_name = os.listdir(logic.constants.PLAYER_RUN_IMAGE_PATH)
         for i in r_name:
             self.frames_normal.append(load_image(logic.constants.PLAYER_RUN_IMAGE_PATH + i))
@@ -45,10 +45,37 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect().move(
             self.pos_x, self.pos_y)
 
+    def update(self, platform_list):
+        self.platform_list = platform_list
+        if not (self.jumping):
+            self.gravity()
+
+        block_hit_list = pygame.sprite.spritecollide(self, platform_list, False)
+        if block_hit_list != []:
+
+            for block in block_hit_list:
+                self.rect.bottom = block.rect.top
+                if self.rect.bottom >= block.rect.top:
+                    self.can_jump = True
+        else:
+            self.can_jump = False
+
     def link_to_surface(self, surface):
         self.screen = surface
 
     def move(self, x, y):
+
+        self.rect = self.rect.move(x, y)
+        block_hit_list = pygame.sprite.spritecollide(self, self.platform_list, False)
+        for block in block_hit_list:
+            if self.direction == 1 and self.rect.x <= block.rect.left:
+                self.rect.right = block.rect.left
+
+            elif self.direction == -1 and self.rect.x + self.image.get_width() >= block.rect.right:
+
+                self.rect.left = block.rect.right
+            print(self.rect.x, block.rect.right)
+
         if self.jumping is False:
             if self.direction == 1:
                 self.cur_frame = (self.cur_frame + 1) % len(self.frames_normal)
@@ -57,7 +84,6 @@ class Player(pygame.sprite.Sprite):
             elif self.direction == -1:
                 self.cur_frame = (self.cur_frame + 1) % len(self.frames_flipped)
                 self.image = self.frames_flipped[self.cur_frame]
-        self.rect = self.rect.move(x, y)
 
     def set_jump(self):
         if self.is_jump():
@@ -99,6 +125,6 @@ class Player(pygame.sprite.Sprite):
         self.block_rect = (
             self.rect.right + 20, self.rect.top + (self.rect.height - block_image.get_height() // 3) // 2)
         print(self.block_rect[0] // logic.constants.tile_width,
-             self.block_rect[1] // logic.constants.tile_height)
-        Tile(block_image, self.block_rect[0] // logic.constants.tile_width,
-             self.block_rect[1] // logic.constants.tile_height)
+              self.block_rect[1] // logic.constants.tile_height)
+        return Tile(block_image, self.block_rect[0] // logic.constants.tile_width,
+                    self.block_rect[1] // logic.constants.tile_height)
