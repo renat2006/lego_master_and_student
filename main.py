@@ -20,13 +20,29 @@ jump_stage = logic.constants.JUMP_VALUE
 jump_sound = pygame.mixer.Sound(logic.constants.JUMP_SOUND)
 jump_sound.set_volume(pygame.mixer.music.get_volume() * 2)
 inventoty = Inventory(screen)
+is_collide = False
 while running:
     keys = pygame.key.get_pressed()
 
     player.set_idle()
+    player_group.update(tiles)
+    if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+        player.direction = 1
+        if player.is_jump():
+            player.move(logic.constants.STEP * 1.5, 0)
 
-    if keys[pygame.K_SPACE]:
-        if not player.is_jump():
+        else:
+            player.move(logic.constants.STEP, 0)
+
+    if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+        player.direction = -1
+        if player.is_jump():
+            player.move(-logic.constants.STEP * 1.5, 0)
+
+        else:
+            player.move(-logic.constants.STEP, 0)
+    if keys[pygame.K_SPACE] or keys[pygame.K_UP]:
+        if not player.is_jump() and player.can_jump:
             jump_sound.play()
             player.set_jump()
     if player.is_jump():
@@ -38,22 +54,6 @@ while running:
 
             jump_stage += 1
 
-    if keys[pygame.K_RIGHT]:
-        player.direction = 1
-        if player.is_jump():
-            player.move(logic.constants.STEP * 1.5, 0)
-
-        else:
-            player.move(logic.constants.STEP, 0)
-
-    if keys[pygame.K_LEFT]:
-        player.direction = -1
-        if player.is_jump():
-            player.move(-logic.constants.STEP * 1.5, 0)
-
-        else:
-            player.move(-logic.constants.STEP, 0)
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -61,12 +61,10 @@ while running:
             if event.key == pygame.K_ESCAPE:
                 running = False
 
-    player.rect.y += 5
-    hit_tiles = pygame.sprite.spritecollide(player, tiles_group, False)
-    for tile in hit_tiles:
-        if player.rect.x <= tile.rect.x + tile.rect.width \
-                and player.rect.x + player.rect.width >= tile.rect.x:
-            player.rect.y = tile.rect.y - player.rect.height
+            # if event.key == pygame.K_LEFT:
+            #     player.move(-STEP, 0)
+            # if event.key == pygame.K_RIGHT:
+            #     player.move(STEP, 0)
 
     screen.fill('#202020')
 
@@ -75,9 +73,12 @@ while running:
     tiles_group.draw(screen)
     tiles_group.update()
     player_group.draw(screen)
+
     if block_texture:
-        if pygame.mouse.get_pressed()[0]:
-            player.set_block(block_texture)
+
+        if keys[pygame.K_f] or keys[pygame.K_s] or keys[pygame.K_DOWN]:
+            block = player.set_block(block_texture)
+            tiles.append(block)
         player.draw_block(block_texture)
 
     clock.tick(60)

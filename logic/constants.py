@@ -16,7 +16,7 @@ JUMP_SOUND = 'data/music/jump.mp3'
 LOGO_SIZE = 411, 83
 BTN_COLOR = ['black', 'red']
 STEP = 4
-JUMP_VALUE = -17
+JUMP_VALUE = -15
 BACKGROUND_1level = "data/fon_city.png"
 MOON_1level = "data/moon.png"
 CURSOR_IMG = 'data/cursor.png'
@@ -26,7 +26,10 @@ player_height = 70
 tile_images = {
     'wall': 'data/box.png',
     'empty': None,
-    'plate': 'data/plate.png'
+    'plate': 'data/plate.png',
+    'triangle': 'data/block_triangle.png',
+    'gun': 'data/gun.png'
+
 }
 BOX_CHAR = 'data/box_char.png'
 INVENTORY_HEIGHT = 120

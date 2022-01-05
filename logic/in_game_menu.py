@@ -16,7 +16,9 @@ class Inventory:
                 logic.constants.INVENTORY_HEIGHT + self.padding) + self.padding,
                          logic.constants.INVENTORY_HEIGHT)
         self.images = [load_image(logic.constants.tile_images['wall']),
-                       load_image(logic.constants.tile_images['plate'])]
+                       load_image(logic.constants.tile_images['plate']),
+                       load_image(logic.constants.tile_images['gun']),
+                       load_image(logic.constants.tile_images['triangle'])]
         self.colors = [0] * logic.constants.INVENTORY_COLUMNS
 
     def draw(self, keys):
@@ -60,8 +62,8 @@ class Inventory:
                                          )
             if i <= len(self.images) - 1:
                 self.screen.blit(self.images[i],
-                                 (curr_rect.x - self.images[i].get_rect().height // 2 + curr_rect.width // 2,
-                                  curr_rect.y - self.images[i].get_rect().width // 2 + curr_rect.height // 2))
+                                 (curr_rect.x - self.images[i].get_rect().width // 2 + curr_rect.width // 2,
+                                  curr_rect.y - self.images[i].get_rect().height // 2 + curr_rect.height // 2))
         if self.colors != [0] * logic.constants.INVENTORY_COLUMNS:
             print(self.colors.index(1))
             return self.images[self.colors.index(1)]
