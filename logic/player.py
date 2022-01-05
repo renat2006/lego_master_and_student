@@ -54,9 +54,11 @@ class Player(pygame.sprite.Sprite):
         if block_hit_list != []:
 
             for block in block_hit_list:
-                self.rect.bottom = block.rect.top
-                if self.rect.bottom >= block.rect.top:
+
+                if self.rect.top <= block.rect.top :
+                    self.rect.bottom = block.rect.top
                     self.can_jump = True
+
         else:
             self.can_jump = False
 
