@@ -78,7 +78,8 @@ while running:
 
         if keys[pygame.K_f] or keys[pygame.K_s] or keys[pygame.K_DOWN]:
             block = player.set_block(block_texture)
-            tiles.append(block)
+            if block:
+                tiles.append(block)
         player.draw_block(block_texture)
 
     clock.tick(60)

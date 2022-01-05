@@ -31,7 +31,7 @@ tile_images = {
     'gun': 'data/gun.png'
 
 }
-BOX_CHAR = 'data/box_char.png'
+GUN_ANIM = 'data/gun/'
+GUN = 'data/gun/gun_01.png'
 INVENTORY_HEIGHT = 120
 INVENTORY_COLUMNS = 5
-

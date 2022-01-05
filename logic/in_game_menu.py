@@ -18,7 +18,8 @@ class Inventory:
         self.images = [load_image(logic.constants.tile_images['wall']),
                        load_image(logic.constants.tile_images['plate']),
                        load_image(logic.constants.tile_images['gun']),
-                       load_image(logic.constants.tile_images['triangle'])]
+                       load_image(logic.constants.tile_images['triangle']),
+                       load_image(logic.constants.GUN)]
         self.colors = [0] * logic.constants.INVENTORY_COLUMNS
 
     def draw(self, keys):
@@ -64,8 +65,10 @@ class Inventory:
                 self.screen.blit(self.images[i],
                                  (curr_rect.x - self.images[i].get_rect().width // 2 + curr_rect.width // 2,
                                   curr_rect.y - self.images[i].get_rect().height // 2 + curr_rect.height // 2))
-        if self.colors != [0] * logic.constants.INVENTORY_COLUMNS:
+        if self.colors != [0] * logic.constants.INVENTORY_COLUMNS and self.colors[-1] != 1:
             print(self.colors.index(1))
             return self.images[self.colors.index(1)]
+        elif self.colors != [0] * logic.constants.INVENTORY_COLUMNS and self.colors[-1] == 1:
+            return logic.constants.GUN
         else:
             return False

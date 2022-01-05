@@ -24,16 +24,20 @@ class Player(pygame.sprite.Sprite):
         self.image = self.idle
         self.frames_normal = []
         self.frames_flipped = []
+        self.gun = []
         self.can_jump = True
+        self.shooting = False
         r_name = os.listdir(logic.constants.PLAYER_RUN_IMAGE_PATH)
         for i in r_name:
             self.frames_normal.append(load_image(logic.constants.PLAYER_RUN_IMAGE_PATH + i))
         for i in r_name:
             self.frames_flipped.append(
                 pygame.transform.flip(load_image(logic.constants.PLAYER_RUN_IMAGE_PATH + i), True, False))
-
+        r_name = os.listdir(logic.constants.GUN_ANIM)
+        for i in r_name:
+            self.gun.append(load_image(logic.constants.GUN_ANIM + i))
         self.cur_frame = 0
-
+        self.cur_gun_frame = 0
         self.pos_x = x * logic.constants.player_width
         self.pos_y = y * logic.constants.player_height
         self.player_width = self.image.get_rect().width
@@ -115,18 +119,43 @@ class Player(pygame.sprite.Sprite):
             self.image = self.idle_flipped
 
     def draw_block(self, block_image):
-        block_image = pygame.transform.scale(block_image, (block_image.get_height() // 3, block_image.get_width() // 3))
-        self.block_rect = self.rect.right + 20, self.rect.top + (self.rect.height - block_image.get_height() // 3) // 2
-        if self.direction == 1:
-            self.screen.blit(block_image, self.block_rect
-                             )
-        elif self.direction == -1:
-            self.screen.blit(block_image, self.block_rect)
+        if block_image == logic.constants.GUN:
+            if self.shooting:
+                self.cur_gun_frame = (self.cur_gun_frame + 1) % len(self.gun)
+            if self.cur_gun_frame + 1== len(self.gun):
+                self.shooting = False
+            if self.direction == 1:
+                self.block_rect = self.rect.right, self.rect.top + self.rect.height // 4
+                block_image = self.gun[self.cur_gun_frame]
+            elif self.direction == -1:
+                self.block_rect = self.rect.left - self.rect.width, self.rect.top + self.rect.height // 4
+                block_image = pygame.transform.flip(self.gun[self.cur_gun_frame], True, False)
+
+
+        else:
+
+            if self.direction == 1:
+                block_image = pygame.transform.scale(block_image,
+                                                     (block_image.get_height() // 3, block_image.get_width() // 3))
+                self.block_rect = self.rect.right + 20, self.rect.top + (
+                        self.rect.height - block_image.get_height() // 3) // 2
+            elif self.direction == -1:
+                block_image = pygame.transform.scale(block_image,
+                                                     (block_image.get_height() // 3, block_image.get_width() // 3))
+                block_image = pygame.transform.flip(block_image, True, False)
+                self.block_rect = self.rect.left - 20, self.rect.top + (
+                        self.rect.height - block_image.get_height() // 3) // 2
+
+        self.screen.blit(block_image, self.block_rect)
 
     def set_block(self, block_image):
-        self.block_rect = (
-            self.rect.right + 20, self.rect.top + (self.rect.height - block_image.get_height() // 3) // 2)
-        print(self.block_rect[0] // logic.constants.tile_width,
-              self.block_rect[1] // logic.constants.tile_height)
-        return Tile(block_image, self.block_rect[0] // logic.constants.tile_width,
-                    self.block_rect[1] // logic.constants.tile_height)
+
+        if block_image != logic.constants.GUN:
+            self.block_rect = (
+                self.rect.right + 20, self.rect.top + (self.rect.height - block_image.get_height() // 3) // 2)
+            return Tile(block_image, self.block_rect[0] // logic.constants.tile_width,
+                        self.block_rect[1] // logic.constants.tile_height)
+        else:
+
+            self.shooting = True
+            return None
