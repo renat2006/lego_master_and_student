@@ -63,11 +63,6 @@ while running:
             if event.key == pygame.K_ESCAPE:
                 running = False
 
-            # if event.key == pygame.K_LEFT:
-            #     player.move(-STEP, 0)
-            # if event.key == pygame.K_RIGHT:
-            #     player.move(STEP, 0)
-
     screen.fill('#202020')
 
     screen.blit(fon, (0, 0))
@@ -93,7 +88,7 @@ while running:
 
         player.draw_block(block_texture)
 
-    clock.tick(60)
+    clock.tick(logic.constants.FPS)
     pygame.display.flip()
 
 # ------------------------------------------------------

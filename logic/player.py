@@ -59,14 +59,17 @@ class Player(pygame.sprite.Sprite):
         if not (self.jumping):
             self.gravity()
 
-        block_hit_list = pygame.sprite.spritecollide(self, self.platform_list, False)
-        if block_hit_list != []:
+        block_hit_list = pygame.sprite.spritecollide(self, platform_list, False)
+        if block_hit_list:
 
             for block in block_hit_list:
 
-                if self.rect.bottom >= block.rect.top:
+                if self.rect.bottom >= block.rect.top > self.rect.top:
                     self.rect.bottom = block.rect.top
                     self.can_jump = True
+
+                if block.rect.bottom >= self.rect.top > block.rect.top:
+                    self.rect.top = block.rect.bottom
 
         else:
             self.can_jump = False
@@ -84,20 +87,18 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.rect.move(x, y)
         block_hit_list = pygame.sprite.spritecollide(self, self.platform_list, False)
         for block in block_hit_list:
-            if self.direction == 1 and self.rect.x <= block.rect.left:
+            if self.direction == RIGHT and self.rect.left <= block.rect.left:
                 self.rect.right = block.rect.left
 
-            elif self.direction == -1 and self.rect.x + self.image.get_width() >= block.rect.right:
-
+            elif self.direction == LEFT and self.rect.x + self.rect.width >= block.rect.right:
                 self.rect.left = block.rect.right
-            print(self.rect.x, block.rect.right)
 
-        if self.jumping is False:
-            if self.direction == 1:
+        if not self.jumping:
+            if self.direction == RIGHT:
                 self.cur_frame = (self.cur_frame + 1) % len(self.frames_normal)
                 self.image = self.frames_normal[self.cur_frame]
 
-            elif self.direction == -1:
+            elif self.direction == LEFT:
                 self.cur_frame = (self.cur_frame + 1) % len(self.frames_flipped)
                 self.image = self.frames_flipped[self.cur_frame]
 
