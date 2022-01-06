@@ -27,8 +27,6 @@ tile_images = {
     'wall': 'data/box.png',
     'empty': None,
     'plate': 'data/plate.png',
-    'triangle': 'data/block_triangle.png',
-    'gun': 'data/gun.png'
 
 }
 GUN_ANIM = 'data/gun/'
@@ -37,7 +35,13 @@ GUN = 'data/gun/gun_01.png'
 BULLET = 'data/bullet.png'
 BULLET_COUNT = 10
 BLOCK_COUNT = 20
+HEART_COUNT = 1
+SPEED_COUNT = 2
+UP_BOOST_COUNT = 2
 INVENTORY_HEIGHT = 120
 INVENTORY_COLUMNS = 5
 RIGHT = 1
 LEFT = -1
+HEART = 'data/hurt.png'
+UP_BOOST = 'data/jump.png'
+SPEED_BOOST = 'data/speed.png'

@@ -19,9 +19,9 @@ class Inventory:
                 logic.constants.INVENTORY_HEIGHT + self.padding) + self.padding,
                          logic.constants.INVENTORY_HEIGHT)
         self.images = [load_image(logic.constants.tile_images['wall']),
-                       load_image(logic.constants.tile_images['plate']),
-                       load_image(logic.constants.tile_images['gun']),
-                       load_image(logic.constants.tile_images['triangle']),
+                       load_image(logic.constants.UP_BOOST),
+                       load_image(logic.constants.SPEED_BOOST),
+                       load_image(logic.constants.HEART),
                        load_image(logic.constants.GUN)]
         self.colors = [0] * logic.constants.INVENTORY_COLUMNS
         self.gun = []
@@ -80,9 +80,9 @@ class Inventory:
                 self.screen.blit(blit_image, rect)
 
         if self.colors != [0] * logic.constants.INVENTORY_COLUMNS and self.colors[-1] != 1:
-            print(self.colors.index(1))
-            return self.images[self.colors.index(1)]
+
+            return self.images[self.colors.index(1)], self.colors.index(1)
         elif self.colors != [0] * logic.constants.INVENTORY_COLUMNS and self.colors[-1] == 1:
-            return logic.constants.GUN
+            return logic.constants.GUN, self.colors.index(1)
         else:
-            return False
+            return False, False
