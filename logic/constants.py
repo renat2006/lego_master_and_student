@@ -32,6 +32,10 @@ tile_images = {
 
 }
 GUN_ANIM = 'data/gun/'
+GUN_ANIM_RELOAD = 'data/reload/'
 GUN = 'data/gun/gun_01.png'
+BULLET = 'data/bullet.png'
+BULLET_COUNT = 10
+BLOCK_COUNT = 20
 INVENTORY_HEIGHT = 120
 INVENTORY_COLUMNS = 5

@@ -1,3 +1,5 @@
+import os
+
 import pygame
 from pygame.rect import Rect
 
@@ -9,6 +11,7 @@ class Inventory:
     def __init__(self, screen):
         self.screen = screen
         self.padding = 5
+        self.cur_gun_frame = 0
         self.pos_x = (logic.constants.WIDTH - logic.constants.INVENTORY_COLUMNS * (
                 logic.constants.INVENTORY_HEIGHT + self.padding) - self.padding) // 2
         self.pos_y = logic.constants.HEIGHT - logic.constants.INVENTORY_HEIGHT
@@ -21,6 +24,10 @@ class Inventory:
                        load_image(logic.constants.tile_images['triangle']),
                        load_image(logic.constants.GUN)]
         self.colors = [0] * logic.constants.INVENTORY_COLUMNS
+        self.gun = []
+        r_name = os.listdir(logic.constants.GUN_ANIM)
+        for i in r_name:
+            self.gun.append(load_image(logic.constants.GUN_ANIM + i))
 
     def draw(self, keys):
         pygame.draw.rect(self.screen, '#4f4f4f',
@@ -62,9 +69,16 @@ class Inventory:
                                           logic.constants.INVENTORY_HEIGHT - self.padding * 2)
                                          )
             if i <= len(self.images) - 1:
-                self.screen.blit(self.images[i],
-                                 (curr_rect.x - self.images[i].get_rect().width // 2 + curr_rect.width // 2,
-                                  curr_rect.y - self.images[i].get_rect().height // 2 + curr_rect.height // 2))
+
+                rect = curr_rect.x - self.images[i].get_rect().width // 2 + curr_rect.width // 2, curr_rect.y - \
+                       self.images[i].get_rect().height // 2 + curr_rect.height // 2
+
+                blit_image = self.images[i]
+                if self.colors[-1] == 1 and i == 4:
+                    self.cur_gun_frame = (self.cur_gun_frame + 1) % len(self.gun)
+                    blit_image = self.gun[self.cur_gun_frame]
+                self.screen.blit(blit_image, rect)
+
         if self.colors != [0] * logic.constants.INVENTORY_COLUMNS and self.colors[-1] != 1:
             print(self.colors.index(1))
             return self.images[self.colors.index(1)]

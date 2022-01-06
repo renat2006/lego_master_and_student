@@ -4,6 +4,7 @@ from pygame.rect import Rect
 from logic.load_image import *
 import logic.constants
 import sys
+from logic.bullet import *
 
 sys.path.insert(0, "../")
 from generate_level import *
@@ -27,6 +28,10 @@ class Player(pygame.sprite.Sprite):
         self.gun = []
         self.can_jump = True
         self.shooting = False
+        self.bullet_count = logic.constants.BULLET_COUNT
+        self.block_count = logic.constants.BLOCK_COUNT
+        self.counter = 0
+        self.old_time = self.counter
         r_name = os.listdir(logic.constants.PLAYER_RUN_IMAGE_PATH)
         for i in r_name:
             self.frames_normal.append(load_image(logic.constants.PLAYER_RUN_IMAGE_PATH + i))
@@ -54,7 +59,7 @@ class Player(pygame.sprite.Sprite):
         if not (self.jumping):
             self.gravity()
 
-        block_hit_list = pygame.sprite.spritecollide(self, platform_list, False)
+        block_hit_list = pygame.sprite.spritecollide(self, self.platform_list, False)
         if block_hit_list != []:
 
             for block in block_hit_list:
@@ -65,6 +70,11 @@ class Player(pygame.sprite.Sprite):
 
         else:
             self.can_jump = False
+
+        if self.counter - self.old_time >= 7:
+            self.counter = 7
+        else:
+            self.counter += 1
 
     def link_to_surface(self, surface):
         self.screen = surface
@@ -119,21 +129,29 @@ class Player(pygame.sprite.Sprite):
             self.image = self.idle_flipped
 
     def draw_block(self, block_image):
+        font = pygame.font.Font(logic.constants.FONT_PATH, 20)
         if block_image == logic.constants.GUN:
+
+            text = font.render(str(self.bullet_count), True, 'red')
+
             if self.shooting:
                 self.cur_gun_frame = (self.cur_gun_frame + 1) % len(self.gun)
-            if self.cur_gun_frame + 1== len(self.gun):
+
+            if self.cur_gun_frame + 1 == len(self.gun):
                 self.shooting = False
             if self.direction == 1:
                 self.block_rect = self.rect.right, self.rect.top + self.rect.height // 4
+
                 block_image = self.gun[self.cur_gun_frame]
             elif self.direction == -1:
                 self.block_rect = self.rect.left - self.rect.width, self.rect.top + self.rect.height // 4
                 block_image = pygame.transform.flip(self.gun[self.cur_gun_frame], True, False)
+            text_rect = self.block_rect[0] + 25, self.block_rect[1] - font.get_height()
 
 
         else:
 
+            text = font.render(str(self.block_count), True, 'red')
             if self.direction == 1:
                 block_image = pygame.transform.scale(block_image,
                                                      (block_image.get_height() // 3, block_image.get_width() // 3))
@@ -145,17 +163,24 @@ class Player(pygame.sprite.Sprite):
                 block_image = pygame.transform.flip(block_image, True, False)
                 self.block_rect = self.rect.left - 20, self.rect.top + (
                         self.rect.height - block_image.get_height() // 3) // 2
-
+            text_rect = self.block_rect[0], self.block_rect[1] - font.get_height()
+        self.screen.blit(text, text_rect)
         self.screen.blit(block_image, self.block_rect)
 
     def set_block(self, block_image):
 
-        if block_image != logic.constants.GUN:
+        if block_image != logic.constants.GUN and self.counter % 14 == 0 and self.block_count > 0:
             self.block_rect = (
                 self.rect.right + 20, self.rect.top + (self.rect.height - block_image.get_height() // 3) // 2)
+            self.block_count -= 1
             return Tile(block_image, self.block_rect[0] // logic.constants.tile_width,
                         self.block_rect[1] // logic.constants.tile_height)
-        else:
 
-            self.shooting = True
+        else:
+            if self.counter % 7 == 0 and self.bullet_count > 0:
+                if block_image == logic.constants.GUN:
+                    Bullet(self.block_rect[0], self.block_rect[1] + 12, 50 * self.direction)
+                    self.shooting = True
+                    self.bullet_count -= 1
+                self.old_time = self.counter
             return None

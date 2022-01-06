@@ -8,6 +8,7 @@ from logic.menu import *
 import logic.constants
 from logic.player import *
 from logic.in_game_menu import *
+from logic.bullet import *
 
 screen, clock = init(logic.constants.SIZE)
 start_screen(screen, clock)
@@ -19,13 +20,14 @@ player.link_to_surface(screen)
 jump_stage = logic.constants.JUMP_VALUE
 jump_sound = pygame.mixer.Sound(logic.constants.JUMP_SOUND)
 jump_sound.set_volume(pygame.mixer.music.get_volume() * 2)
-inventoty = Inventory(screen)
+inventory = Inventory(screen)
 is_collide = False
+
 while running:
     keys = pygame.key.get_pressed()
 
     player.set_idle()
-    player_group.update(tiles)
+    player_group.update(tiles_group)
     if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
         player.direction = 1
         if player.is_jump():
@@ -69,10 +71,13 @@ while running:
     screen.fill('#202020')
 
     screen.blit(fon, (0, 0))
-    block_texture = inventoty.draw(keys)
+    block_texture = inventory.draw(keys)
     tiles_group.draw(screen)
     tiles_group.update()
     player_group.draw(screen)
+    bullet_group.update()
+    bullet_group.draw(screen)
+    pygame.sprite.groupcollide(bullet_group, tiles_group, True, True)
 
     if block_texture:
 
@@ -80,6 +85,12 @@ while running:
             block = player.set_block(block_texture)
             if block:
                 tiles.append(block)
+            elif player.bullet_count == 0:
+                new_anim = [load_image(logic.constants.GUN_ANIM_RELOAD + i) for i in
+                            os.listdir(logic.constants.GUN_ANIM_RELOAD)]
+                inventory.gun = new_anim
+
+
         player.draw_block(block_texture)
 
     clock.tick(60)
