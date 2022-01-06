@@ -87,18 +87,18 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.rect.move(x, y)
         block_hit_list = pygame.sprite.spritecollide(self, self.platform_list, False)
         for block in block_hit_list:
-            if self.direction == RIGHT and self.rect.left <= block.rect.left:
+            if self.direction == logic.constants.RIGHT and self.rect.left <= block.rect.left:
                 self.rect.right = block.rect.left
 
-            elif self.direction == LEFT and self.rect.x + self.rect.width >= block.rect.right:
+            elif self.direction == logic.constants.LEFT and self.rect.x + self.rect.width >= block.rect.right:
                 self.rect.left = block.rect.right
 
         if not self.jumping:
-            if self.direction == RIGHT:
+            if self.direction == logic.constants.RIGHT:
                 self.cur_frame = (self.cur_frame + 1) % len(self.frames_normal)
                 self.image = self.frames_normal[self.cur_frame]
 
-            elif self.direction == LEFT:
+            elif self.direction == logic.constants.LEFT:
                 self.cur_frame = (self.cur_frame + 1) % len(self.frames_flipped)
                 self.image = self.frames_flipped[self.cur_frame]
 
