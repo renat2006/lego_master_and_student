@@ -70,10 +70,15 @@ while running:
     player_group.draw(screen)
 
     if block_texture:
-
+        can_build = True
         if keys[pygame.K_f] or keys[pygame.K_s] or keys[pygame.K_DOWN]:
-            block = player.set_block(block_texture)
-            tiles.append(block)
+            for block in tiles_group:
+                if block.rect.x <= player.rect.right + 20 < block.rect.right\
+                        and player.rect.bottom > block.rect.top and player.rect.top < block.rect.bottom:
+                    can_build = False
+            if can_build:
+                block = player.set_block(block_texture)
+                tiles.append(block)
         player.draw_block(block_texture)
 
     clock.tick(logic.constants.FPS)
