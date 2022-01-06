@@ -1,4 +1,4 @@
-FPS = 220
+FPS = 60
 SIZE = WIDTH, HEIGHT = 0, 0
 SCREEN_CONST = 1
 HEADING_FONT_SIZE = 75
@@ -34,4 +34,6 @@ tile_images = {
 BOX_CHAR = 'data/box_char.png'
 INVENTORY_HEIGHT = 120
 INVENTORY_COLUMNS = 5
+RIGHT = 1
+LEFT = -1
 

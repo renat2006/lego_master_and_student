@@ -2,7 +2,7 @@ import pygame
 from pygame.rect import Rect
 
 from logic.load_image import *
-import logic.constants
+from logic.constants import *
 import sys
 
 sys.path.insert(0, "../")
@@ -51,13 +51,16 @@ class Player(pygame.sprite.Sprite):
             self.gravity()
 
         block_hit_list = pygame.sprite.spritecollide(self, platform_list, False)
-        if block_hit_list != []:
+        if block_hit_list:
 
             for block in block_hit_list:
 
-                if self.rect.bottom >= block.rect.top:
+                if self.rect.bottom >= block.rect.top > self.rect.top:
                     self.rect.bottom = block.rect.top
                     self.can_jump = True
+
+                if block.rect.bottom >= self.rect.top > block.rect.top:
+                    self.rect.top = block.rect.bottom
 
         else:
             self.can_jump = False
@@ -70,20 +73,18 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.rect.move(x, y)
         block_hit_list = pygame.sprite.spritecollide(self, self.platform_list, False)
         for block in block_hit_list:
-            if self.direction == 1 and self.rect.x <= block.rect.left:
+            if self.direction == RIGHT and self.rect.left <= block.rect.left:
                 self.rect.right = block.rect.left
 
-            elif self.direction == -1 and self.rect.x + self.image.get_width() >= block.rect.right:
-
+            elif self.direction == LEFT and self.rect.x + self.rect.width >= block.rect.right:
                 self.rect.left = block.rect.right
-            print(self.rect.x, block.rect.right)
 
-        if self.jumping is False:
-            if self.direction == 1:
+        if not self.jumping:
+            if self.direction == RIGHT:
                 self.cur_frame = (self.cur_frame + 1) % len(self.frames_normal)
                 self.image = self.frames_normal[self.cur_frame]
 
-            elif self.direction == -1:
+            elif self.direction == LEFT:
                 self.cur_frame = (self.cur_frame + 1) % len(self.frames_flipped)
                 self.image = self.frames_flipped[self.cur_frame]
 
@@ -126,7 +127,5 @@ class Player(pygame.sprite.Sprite):
     def set_block(self, block_image):
         self.block_rect = (
             self.rect.right + 20, self.rect.top + (self.rect.height - block_image.get_height() // 3) // 2)
-        print(self.block_rect[0] // logic.constants.tile_width,
-              self.block_rect[1] // logic.constants.tile_height)
         return Tile(block_image, self.block_rect[0] // logic.constants.tile_width,
                     self.block_rect[1] // logic.constants.tile_height)
