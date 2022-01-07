@@ -28,6 +28,8 @@ def generate_level(level):
                 tiles.append(Tile(load_image(logic.constants.tile_images['wall']), x, y))
             elif level[y][x] == '-':
                 tiles.append(Tile(load_image(logic.constants.tile_images['plate']), x, y))
+            elif level[y][x] == '%':
+                tiles.append(Tile(load_image(logic.constants.tile_images['glass']), x, y))
             elif level[y][x] == '@':
                 new_player = Player(x, y)
     return new_player, x, y, tiles

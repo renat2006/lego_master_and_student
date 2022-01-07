@@ -27,6 +27,7 @@ tile_images = {
     'wall': 'data/box.png',
     'empty': None,
     'plate': 'data/plate.png',
+    'glass': 'data/glass.png'
 
 }
 GUN_ANIM = 'data/gun/'
