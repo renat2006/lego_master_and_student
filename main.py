@@ -76,6 +76,7 @@ while running:
     particle_group.draw(screen)
     pygame.sprite.groupcollide(bullet_group, tiles_group, True, True)
     player.spell_check()
+    player.lives_manager()
     if block_texture:
 
         if keys[pygame.K_f] or keys[pygame.K_s] or keys[pygame.K_DOWN]:

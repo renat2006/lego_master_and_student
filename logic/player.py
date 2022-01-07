@@ -38,6 +38,8 @@ class Player(pygame.sprite.Sprite):
         self.speed_boost = 1
         self.spell_timer = 0
         self.old_time = self.counter
+        self.lives = 1
+        self.live_image = pygame.transform.scale(load_image(logic.constants.HEART), (50, 50))
         r_name = os.listdir(logic.constants.PLAYER_RUN_IMAGE_PATH)
         for i in r_name:
             self.frames_normal.append(load_image(logic.constants.PLAYER_RUN_IMAGE_PATH + i))
@@ -74,7 +76,7 @@ class Player(pygame.sprite.Sprite):
     def update(self, platform_list):
 
         self.platform_list = platform_list
-        if not (self.jumping):
+        if not self.jumping:
             self.gravity()
 
         block_hit_list = pygame.sprite.spritecollide(self, platform_list, False)
@@ -147,6 +149,11 @@ class Player(pygame.sprite.Sprite):
         elif self.direction == -1:
             self.image = self.idle_flipped
 
+    def lives_manager(self):
+
+        for i in range(self.lives):
+            self.screen.blit(self.live_image, ((5 + self.live_image.get_width()) * i + 10, 25))
+
     def draw_block(self, block_image, block_id):
         self.block_id = block_id
         font = pygame.font.Font(logic.constants.FONT_PATH, 20)
@@ -189,6 +196,8 @@ class Player(pygame.sprite.Sprite):
                 text = font.render(str(self.up_boost_count), True, 'red')
             elif block_id == 2:
                 text = font.render(str(self.speed_count), True, 'red')
+            elif block_id == 3:
+                text = font.render(str(self.heart_count), True, 'red')
             text_rect = self.block_rect[0] + block_image.get_width() // 2, self.block_rect[1] - font.get_height()
 
         self.screen.blit(text, text_rect)
@@ -210,6 +219,13 @@ class Player(pygame.sprite.Sprite):
 
                 self.speed_count -= 1
                 self.speed_boost = 2
+                numbers = range(-10, 10)
+                for _ in range(20):
+                    Particle(self.block_rect, random.choice(numbers), random.choice(numbers), block_image)
+            elif self.block_id == 3 and time_check and self.heart_count > 0:
+
+                self.heart_count -= 1
+                self.lives += 1
                 numbers = range(-10, 10)
                 for _ in range(20):
                     Particle(self.block_rect, random.choice(numbers), random.choice(numbers), block_image)
