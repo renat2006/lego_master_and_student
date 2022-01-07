@@ -205,7 +205,7 @@ class Player(pygame.sprite.Sprite):
 
     def set_block(self, block_image):
         if block_image != logic.constants.GUN:
-            time_check = self.counter % 7 == 0 and self.spell_timer == 0
+            time_check = self.counter % 8 == 0 and self.spell_timer == 0
             self.block_rect = (
                 self.rect.right + 20, self.rect.top + (self.rect.height - block_image.get_height() // 3) // 2)
             if self.block_id == 1 and time_check and self.up_boost_count > 0:

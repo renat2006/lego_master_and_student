@@ -8,8 +8,9 @@ from logic.menu import *
 import logic.constants
 from logic.player import *
 from logic.in_game_menu import *
-from logic.bullet import *
-from logic.particle import *
+from logic.loot import *
+
+loot = Loot(load_image(logic.constants.HEART), 1, 5, 5)
 screen, clock = init(logic.constants.SIZE)
 start_screen(screen, clock)
 load_menu(screen, clock)
@@ -74,20 +75,28 @@ while running:
     bullet_group.draw(screen)
     particle_group.update()
     particle_group.draw(screen)
+    loot_group.update()
+    loot_group.draw(screen)
     pygame.sprite.groupcollide(bullet_group, tiles_group, True, True)
     player.spell_check()
     player.lives_manager()
     if block_texture:
-
+        can_build = True
         if keys[pygame.K_f] or keys[pygame.K_s] or keys[pygame.K_DOWN]:
-            block = player.set_block(block_texture)
-            if block_id == 0:
+            if block_id != 0:
+                block = player.set_block(block_texture)
+            for block in tiles_group:
+                if block.rect.x <= player.rect.right + 20 < block.rect.right \
+                        and player.rect.bottom > block.rect.top and player.rect.top < block.rect.bottom:
+                    print(False)
+                    can_build = False
+            if can_build and block_id == 0:
+                block = player.set_block(block_texture)
                 tiles.append(block)
             elif player.bullet_count == 0:
                 new_anim = [load_image(logic.constants.GUN_ANIM_RELOAD + i) for i in
                             os.listdir(logic.constants.GUN_ANIM_RELOAD)]
                 inventory.gun = new_anim
-
 
         player.draw_block(block_texture, block_id)
 
