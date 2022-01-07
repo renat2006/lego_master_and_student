@@ -10,7 +10,7 @@ from logic.player import *
 from logic.in_game_menu import *
 from logic.loot import *
 
-loot = Loot(load_image(logic.constants.HEART), 1, 5, 5)
+
 screen, clock = init(logic.constants.SIZE)
 start_screen(screen, clock)
 load_menu(screen, clock)
