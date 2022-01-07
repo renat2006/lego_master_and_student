@@ -56,21 +56,21 @@
 
 ## Классы
 
-`File_viewer` - Класс для работы с файлами и конвертации **pptx** в **png** <br>  
-`Main_window` - Окно ввода темы<br>  
-`Window2` - Окно выбора шаблона <br>  
-`Window3` - Окно предпросмотра презентации <br>  
-`Generator` - Класс генерирования презентаций и записи информации в txt<br>  
-`CustomDialog`  - Класс c моделью диалогового окна<br>
+`Bullet` - Класс для работы с патронами оружия  
+`Buttons` - Класс генерирования кнопок
+`Inventory` - Класс, отвечающий за инвентарь игрока
+`Input_field` - Класс генерирования стартового поля  
+`Loot` - Класс отображения бонусов  
+`Settings` - Класс, отвечающий за настройки
+`Particle` - Класс анимации бонусов
+`Player` - Главный класс игрока
+`Settings_fon` - Класс оформления настроек
+`Text` - Класс текстовых вставок
+`Tile` - Класс предметов и препятствий
 
 ## Библиотеки
 
 ___Все используемые библиотеки находятся в
 файле [requirements.txt](https://github.com/renat2006/projet_ya_lc/blob/master/requirements/requirements.txt)___
 
-* [PyQt5](https://pypi.org/project/PyQt5/)
-  Используется для вывода графического интерфейса
-* [wikipedia](https://pypi.org/project/wikipedia/)
-  Википедия - это библиотека Python, которая упрощает доступ и анализ данных из Википедии
-* [python-pptx](https://pypi.org/project/python-pptx/)
-  python-pptx - это библиотека Python для создания и обновления файлов PowerPoint (.pptx).
+* [Pygame](https://en.wikipedia.org/wiki/Pygame)
