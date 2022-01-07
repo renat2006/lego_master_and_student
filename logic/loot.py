@@ -20,4 +20,4 @@ class Loot(pygame.sprite.Sprite):
     def particle(self):
         numbers = range(-10, 10)
         for _ in range(20):
-            Particle(self.block_rect, random.choice(numbers), random.choice(numbers), block_image)
+            Particle(self.block_rect, random.choice(numbers), random.choice(numbers), self.image)
