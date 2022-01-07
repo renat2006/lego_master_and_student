@@ -1,0 +1,16 @@
+Index: load_design_level1.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import logic.load_image\r\nimport logic.constants\r\nfrom generate_level import *\r\nimport pygame\r\n\r\n#код Айгуль----------\r\n\r\ndef load_fon(fon_name, screen):\r\n    fon = pygame.transform.scale(load_image(fon_name), (1400, 840))\r\n    screen.fill(\"White\")\r\n    screen.blit(fon, (0, 0))\r\n\r\n\r\ndef load_level(filename):\r\n    with open(filename, 'r') as mapFile:\r\n        level_map = [line.strip() for line in mapFile]\r\n    max_width = max(map(len, level_map))\r\n    return list(map(lambda x: x.ljust(max_width, '.'), level_map))\r\n\r\n\r\ndef generate_level(level):\r\n    new_player, x, y = None, None, None\r\n    for y in range(len(level)):\r\n        for x in range(len(level[y])):\r\n            if level[y][x] == '#':\r\n                Tile('wall', x, y)\r\n            elif level[y][x] == '-':\r\n                Tile('plate', x, y)\r\n            elif level[y][x] == '@':\r\n                new_player = Player(logic.constants.PLAYER_IMAGE_PATH, (x, y))\r\n    return new_player, x, y
+===================================================================
+diff --git a/load_design_level1.py b/load_design_level1.py
+--- a/load_design_level1.py	
++++ b/load_design_level1.py	
+@@ -27,5 +27,6 @@
+             elif level[y][x] == '-':
+                 Tile('plate', x, y)
+             elif level[y][x] == '@':
++                print('player')
+                 new_player = Player(logic.constants.PLAYER_IMAGE_PATH, (x, y))
+     return new_player, x, y
+\ No newline at end of file
