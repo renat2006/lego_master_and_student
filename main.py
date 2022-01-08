@@ -21,6 +21,7 @@ start_screen(screen, clock)
 load_menu(screen, clock)
 
 def video(number):
+
     cap = cv2.VideoCapture(f'data/video/{number}.mp4')
     success, img = cap.read()
     shape = img.shape[1::-1]
@@ -28,7 +29,7 @@ def video(number):
     clock = pygame.time.Clock()
 
     while success:
-        clock.tick(40)
+        clock.tick(50)
         success, img = cap.read()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -43,7 +44,7 @@ def video(number):
 
 def main(level):
     running = True
-    fon = load_fon(logic.constants.BACKGROUND_1level, screen)
+    fon = load_fon(logic.constants.FONS[level], screen)
     player, level_x, level_y, tiles = generate_level(load_level(f'level{level}.txt'))
     player.link_to_surface(screen)
     jump_stage = logic.constants.JUMP_VALUE
@@ -54,7 +55,9 @@ def main(level):
     camera = Camera()
     while running:
         keys = pygame.key.get_pressed()
-
+        if player.lives == 0:
+            main(level)
+            return
         player.set_idle()
         player_group.update(tiles_group)
         if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
