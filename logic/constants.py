@@ -56,3 +56,4 @@ ENEMY_STEP = 1
 ENEMY_IMAGE_PATH = tile_images["wall"]
 enemy_height = tile_height
 enemy_width = tile_width
+THROW_VALUE = -20

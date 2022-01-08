@@ -11,13 +11,13 @@ from logic.player import *
 from logic.in_game_menu import *
 from logic.loot import *
 from logic.enemy import enemy_group
+from logic.enemy import *
 
 screen, clock = init(logic.constants.SIZE)
 start_screen(screen, clock)
 load_menu(screen, clock)
-running = True
 fon, moon = load_fon(logic.constants.BACKGROUND_1level, logic.constants.MOON_1level, screen)
-player, level_x, level_y, tiles = generate_level(load_level('level1.txt'))
+player, level_x, level_y, tiles, enemy = generate_level(load_level('level1.txt'))
 player.link_to_surface(screen)
 jump_stage = logic.constants.JUMP_VALUE
 jump_sound = pygame.mixer.Sound(logic.constants.JUMP_SOUND)
@@ -25,6 +25,7 @@ jump_sound.set_volume(pygame.mixer.music.get_volume() * 2)
 inventory = Inventory(screen)
 is_collide = False
 
+running = True
 while running:
     keys = pygame.key.get_pressed()
 
@@ -64,6 +65,13 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 running = False
+
+    collide_enemy = pygame.sprite.spritecollide(player, enemy_group, False)
+    if collide_enemy:
+        if player.is_jump():
+            player.set_jump()
+            jump_stage = JUMP_VALUE
+        player.collide_with_enemy(collide_enemy)
 
     screen.fill('#202020')
 
@@ -105,7 +113,6 @@ while running:
             for block in tiles_group:
                 if block.rect.x <= player.rect.right + 20 < block.rect.right \
                         and player.rect.bottom > block.rect.top and player.rect.top < block.rect.bottom:
-                    print(False)
                     can_build = False
             if can_build and block_id == 0:
                 block = player.set_block(block_texture)
