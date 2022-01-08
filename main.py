@@ -1,6 +1,5 @@
 import importlib
 import pygame.sprite
-from moviepy.editor import *
 from generate_level import tiles_group, all_sprites
 
 from logic.camera import Camera

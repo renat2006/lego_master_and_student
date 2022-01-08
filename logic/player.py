@@ -16,6 +16,7 @@ player_group = pygame.sprite.Group()
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__(player_group)
+        self.points = 0
         self.jump_move = 0
         self.screen = None
         self.direction = 1
@@ -153,6 +154,7 @@ class Player(pygame.sprite.Sprite):
                 self.rect.bottom = enemy.rect.top
                 self.set_jump()
                 enemy.kill()
+                self.points += 1
                 return
             elif self.rect.x >= enemy.rect.x + enemy.rect.width // 2:
                 dir = RIGHT
