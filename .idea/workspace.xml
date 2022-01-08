@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f1b5fe1c-089b-4f69-b482-3ee57588fca1" name="Changes" comment="logic 2.2.1.1 добавлены катсцены" />
+    <list default="true" id="f1b5fe1c-089b-4f69-b482-3ee57588fca1" name="Changes" comment="logic 2.2.1.3 добавлены катсцены">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/fon_desert.png" beforeDir="false" afterPath="$PROJECT_DIR$/data/fon_desert.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/fon_forest.png" beforeDir="false" afterPath="$PROJECT_DIR$/data/fon_forest.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/level2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/level2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/level3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/level3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -357,7 +364,21 @@
       <option name="project" value="LOCAL" />
       <updated>1641658148858</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="logic 2.2.1.2 добавлены катсцены">
+      <created>1641658269444</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1641658269444</updated>
+    </task>
+    <task id="LOCAL-00028" summary="logic 2.2.1.3 добавлены катсцены">
+      <created>1641658524022</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1641658524022</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -430,6 +451,8 @@
     <MESSAGE value="logic 2.1.0.1" />
     <MESSAGE value="logic 2.2.0.1 добавлены катсцены" />
     <MESSAGE value="logic 2.2.1.1 добавлены катсцены" />
-    <option name="LAST_COMMIT_MESSAGE" value="logic 2.2.1.1 добавлены катсцены" />
+    <MESSAGE value="logic 2.2.1.2 добавлены катсцены" />
+    <MESSAGE value="logic 2.2.1.3 добавлены катсцены" />
+    <option name="LAST_COMMIT_MESSAGE" value="logic 2.2.1.3 добавлены катсцены" />
   </component>
 </project>

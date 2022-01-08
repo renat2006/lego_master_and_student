@@ -1,6 +1,6 @@
 import importlib
 import pygame.sprite
-from moviepy.editor import *
+
 from generate_level import tiles_group, all_sprites
 
 from logic.camera import Camera
@@ -15,6 +15,8 @@ from logic.player import *
 from logic.in_game_menu import *
 from logic.loot import *
 from logic.enemy import enemy_group
+from logic.enemy import *
+
 import cv2
 screen, clock = init(logic.constants.SIZE)
 start_screen(screen, clock)
@@ -58,9 +60,7 @@ def main(level):
     camera = Camera()
     while running:
         keys = pygame.key.get_pressed()
-        if player.lives == 0:
-            main(level)
-            return
+
         player.set_idle()
         player_group.update(tiles_group)
         if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
@@ -97,8 +97,12 @@ def main(level):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     terminate()
-
-        screen.fill('#202020')
+        if level == '1':
+            screen.fill('#202020')
+        elif level == '2':
+            screen.fill('black')
+        elif level == '3':
+            screen.fill('#646464')
 
         screen.blit(fon, (0, 0))
         block_texture, block_id = inventory.draw(keys)
@@ -172,7 +176,26 @@ def main(level):
             player.draw_block(block_texture, block_id)
         is_coll_chest = pygame.sprite.spritecollide(player, chest_group, False)
         if is_coll_chest:
+
             chest_group.sprites()[0].coin()
+            if not particle_group.sprites():
+                for sprite in player_group:
+                    sprite.kill()
+                for sprite in tiles_group:
+                    sprite.kill()
+                for sprite in loot_group:
+                    sprite.kill()
+                for sprite in chest_group:
+                    sprite.kill()
+                for sprite in enemy_group:
+                    sprite.kill()
+                for sprite in particle_group:
+                    sprite.kill()
+
+
+
+            return
+        if player.lives == 0:
             for sprite in player_group:
                 sprite.kill()
             for sprite in tiles_group:
@@ -185,7 +208,7 @@ def main(level):
                 sprite.kill()
             for sprite in particle_group:
                 sprite.kill()
-
+            main(level)
             return
         clock.tick(logic.constants.FPS)
         pygame.display.flip()
@@ -201,5 +224,4 @@ main('3')
 
 
 
-from logic.enemy import *
 
