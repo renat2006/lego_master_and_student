@@ -48,7 +48,7 @@ def video(number):
 def main(level):
     running = True
     fon = load_fon(logic.constants.FONS[level], screen)
-    player, level_x, level_y, tiles = generate_level(load_level(f'level{level}.txt'))
+    player, level_x, level_y, tiles, enemy = generate_level(load_level(f'level{level}.txt'))
     player.link_to_surface(screen)
     jump_stage = logic.constants.JUMP_VALUE
     jump_sound = pygame.mixer.Sound(logic.constants.JUMP_SOUND)
