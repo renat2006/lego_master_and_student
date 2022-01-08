@@ -2,6 +2,8 @@ import logic.load_image
 import logic.constants
 from generate_level import *
 import pygame
+
+from logic.chest import Chest
 from logic.player import *
 from logic.loot import *
 
@@ -30,6 +32,8 @@ def generate_level(level):
                 tiles.append(Tile(load_image(logic.constants.tile_images['plate']), x, y))
             elif level[y][x] == '*':
                 tiles.append(Tile(load_image(logic.constants.tile_images['glass']), x, y))
+            elif level[y][x] == '+':
+                Chest(load_image(logic.constants.tile_images['chest']), x, y)
             elif level[y][x] == '/':
                 tiles.append(Tile(load_image(logic.constants.tile_images['wood']), x, y))
             elif level[y][x] == 'h':

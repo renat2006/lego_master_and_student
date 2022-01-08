@@ -30,9 +30,11 @@ tile_images = {
     'heart': 'data/hurt.png',
     'jump': 'data/jump.png',
     'speed': 'data/speed.png',
-    'glass': 'data/glass.png'
+    'glass': 'data/glass.png',
+    'chest': 'data/chest.png'
 
 }
+COIN_ANIM = 'data/coin/'
 GUN_ANIM = 'data/gun/'
 GUN_ANIM_RELOAD = 'data/reload/'
 GUN = 'data/gun/gun_01.png'

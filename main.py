@@ -2,6 +2,7 @@ import pygame.sprite
 
 from generate_level import tiles_group, all_sprites
 from load_design_level1 import load_fon, generate_level, load_level
+from logic.chest import chest_group
 from logic.screen_and_init import *
 from logic.start_screen import *
 from logic.menu import *
@@ -79,6 +80,8 @@ while running:
     pygame.sprite.groupcollide(bullet_group, tiles_group, True, True)
     player.spell_check()
     player.lives_manager()
+    chest_group.update()
+    chest_group.draw(screen)
     loot_list_hit = pygame.sprite.spritecollide(player, loot_group, False)
     for loot in loot_list_hit:
         numbers = range(-10, 10)
