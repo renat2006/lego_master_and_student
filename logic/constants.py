@@ -55,7 +55,7 @@ LEFT = -1
 HEART = 'data/hurt.png'
 UP_BOOST = 'data/jump.png'
 SPEED_BOOST = 'data/speed.png'
-
+ENEMY_RUN = 'data/enemy/'
 ENEMY_STEP = 1
 ENEMY_IMAGE_PATH = tile_images["wall"]
 enemy_height = tile_height

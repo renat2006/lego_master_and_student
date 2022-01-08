@@ -16,12 +16,13 @@ from logic.in_game_menu import *
 from logic.loot import *
 from logic.enemy import enemy_group
 import cv2
+
 screen, clock = init(logic.constants.SIZE)
 start_screen(screen, clock)
 load_menu(screen, clock)
 
-def video(number):
 
+def video(number):
     cap = cv2.VideoCapture(f'data/video/{number}.mp4')
     success, img = cap.read()
     shape = img.shape[1::-1]
@@ -42,7 +43,6 @@ def video(number):
         except AttributeError:
             return
         pygame.display.update()
-
 
 
 def main(level):
@@ -166,22 +166,26 @@ def main(level):
         is_coll_chest = pygame.sprite.spritecollide(player, chest_group, False)
         if is_coll_chest:
             chest_group.sprites()[0].coin()
-            for sprite in player_group:
-                sprite.kill()
-            for sprite in tiles_group:
-                sprite.kill()
-            for sprite in loot_group:
-                sprite.kill()
-            for sprite in chest_group:
-                sprite.kill()
-            for sprite in enemy_group:
-                sprite.kill()
-            for sprite in particle_group:
-                sprite.kill()
+            player.jump_boost = 0
+            player.speed_boost = 0
+            if not particle_group.sprites():
+                for sprite in player_group:
+                    sprite.kill()
+                for sprite in tiles_group:
+                    sprite.kill()
+                for sprite in loot_group:
+                    sprite.kill()
+                for sprite in chest_group:
+                    sprite.kill()
+                for sprite in enemy_group:
+                    sprite.kill()
+                for sprite in particle_group:
+                    sprite.kill()
 
-            return
+                return
         clock.tick(logic.constants.FPS)
         pygame.display.flip()
+
 
 video('1')
 main('1')
@@ -189,8 +193,3 @@ video('2')
 main('2')
 video('3')
 main('3')
-
-
-
-
-

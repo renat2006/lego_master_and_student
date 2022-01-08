@@ -1,3 +1,5 @@
+import os
+
 import pygame
 from logic.constants import *
 from generate_level import *
@@ -12,17 +14,34 @@ class Enemy(pygame.sprite.Sprite):
         self.image = load_image(logic.constants.ENEMY_IMAGE_PATH)
         self.pos_x = x * enemy_width
         self.pos_y = y * enemy_height
+        self.cur_frame = 0
         self.rect = self.image.get_rect().move(
             self.pos_x, self.pos_y)
+        self.frames_normal = []
+        r_name = os.listdir(logic.constants.ENEMY_RUN)
+        for i in r_name:
+            self.frames_normal.append(load_image(logic.constants.ENEMY_RUN + i))
+        self.frames_flipped = []
+
+        for i in r_name:
+            self.frames_flipped.append(pygame.transform.flip(load_image(logic.constants.ENEMY_RUN + i), True, False))
 
     def link_to_surface(self, surface):
         self.screen = surface
 
     def set_direction(self):
         self.direction *= -1
+        self.cur_frame = 0
 
     def move(self):
         self.rect = self.rect.move(ENEMY_STEP * self.direction, 0)
+        if self.direction == 1:
+            self.cur_frame = (self.cur_frame + 1) % len(self.frames_normal)
+            self.image = self.frames_normal[self.cur_frame]
+        elif self.direction == -1:
+
+            self.cur_frame = (self.cur_frame + 1) % len(self.frames_flipped)
+            self.image = self.frames_flipped[self.cur_frame]
 
     def update(self):
         is_can_move = False
