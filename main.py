@@ -34,6 +34,9 @@ def video(number):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 success = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    terminate()
         try:
             wn.blit(pygame.image.frombuffer(img.tobytes(), shape, "BGR"), (0, 0))
         except AttributeError:
@@ -93,7 +96,7 @@ def main(level):
                 running = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    running = False
+                    terminate()
 
         screen.fill('#202020')
 
