@@ -10,6 +10,7 @@ import logic.constants
 from logic.player import *
 from logic.in_game_menu import *
 from logic.loot import *
+from logic.enemy import enemy_group
 
 screen, clock = init(logic.constants.SIZE)
 start_screen(screen, clock)
@@ -77,6 +78,8 @@ while running:
     particle_group.draw(screen)
     loot_group.update()
     loot_group.draw(screen)
+    enemy_group.update()
+    enemy_group.draw(screen)
     pygame.sprite.groupcollide(bullet_group, tiles_group, True, True)
     player.spell_check()
     player.lives_manager()

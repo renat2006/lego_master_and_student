@@ -1,6 +1,7 @@
 import logic.load_image
 import logic.constants
 from generate_level import *
+from logic.enemy import *
 import pygame
 
 from logic.chest import Chest
@@ -44,4 +45,6 @@ def generate_level(level):
                 Loot(load_image(logic.constants.tile_images['jump']), 'jump', x, y)
             elif level[y][x] == '@':
                 new_player = Player(x, y)
+            elif level[y][x] == '!':
+                enemy_group.add(Enemy(x, y))
     return new_player, x, y, tiles
