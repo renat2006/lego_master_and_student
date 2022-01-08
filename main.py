@@ -2,6 +2,7 @@ import pygame.sprite
 
 from generate_level import tiles_group, all_sprites
 from load_design_level1 import load_fon, generate_level, load_level
+from logic.camera import Camera
 from logic.chest import chest_group
 from logic.screen_and_init import *
 from logic.start_screen import *
@@ -24,7 +25,7 @@ jump_sound = pygame.mixer.Sound(logic.constants.JUMP_SOUND)
 jump_sound.set_volume(pygame.mixer.music.get_volume() * 2)
 inventory = Inventory(screen)
 is_collide = False
-
+camera = Camera()
 while running:
     keys = pygame.key.get_pressed()
 
@@ -84,6 +85,8 @@ while running:
     player.spell_check()
     player.lives_manager()
     chest_group.update()
+    camera.update(player)
+
     chest_group.draw(screen)
     loot_list_hit = pygame.sprite.spritecollide(player, loot_group, False)
     for loot in loot_list_hit:
@@ -116,6 +119,9 @@ while running:
                 inventory.gun = new_anim
 
         player.draw_block(block_texture, block_id)
+    is_coll_chest = pygame.sprite.spritecollide(player, chest_group, False)
+    if is_coll_chest:
+        chest_group.sprites()[0].coin()
 
     clock.tick(logic.constants.FPS)
     pygame.display.flip()
