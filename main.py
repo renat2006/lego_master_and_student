@@ -1,6 +1,5 @@
 import importlib
 import pygame.sprite
-from moviepy.editor import *
 from generate_level import tiles_group, all_sprites
 
 from logic.camera import Camera
@@ -48,7 +47,7 @@ def video(number):
 def main(level):
     running = True
     fon = load_fon(logic.constants.FONS[level], screen)
-    player, level_x, level_y, tiles = generate_level(load_level(f'level{level}.txt'))
+    player, level_x, level_y, tiles, enemy = generate_level(load_level(f'level{level}.txt'))
     player.link_to_surface(screen)
     jump_stage = logic.constants.JUMP_VALUE
     jump_sound = pygame.mixer.Sound(logic.constants.JUMP_SOUND)
@@ -118,18 +117,14 @@ def main(level):
         player.lives_manager()
         chest_group.update()
         camera.update(player)
-        for sprite in player_group:
-            camera.apply(sprite)
-        for sprite in tiles_group:
-            camera.apply(sprite)
-        for sprite in loot_group:
-            camera.apply(sprite)
-        for sprite in chest_group:
-            camera.apply(sprite)
-        for sprite in enemy_group:
-            camera.apply(sprite)
-        for sprite in particle_group:
-            camera.apply(sprite)
+        collide_enemy = pygame.sprite.spritecollide(player, enemy_group, False)
+        if collide_enemy:
+            if player.is_jump():
+                player.set_jump()
+                jump_stage = JUMP_VALUE
+            player.collide_with_enemy(collide_enemy)
+
+
 
         chest_group.draw(screen)
         loot_list_hit = pygame.sprite.spritecollide(player, loot_group, False)
@@ -189,7 +184,35 @@ def main(level):
                     sprite.kill()
 
                 return
+        print(player.lives)
+        if player.lives <= 0:
 
+            for sprite in player_group:
+                sprite.kill()
+            for sprite in tiles_group:
+                sprite.kill()
+            for sprite in loot_group:
+                sprite.kill()
+            for sprite in chest_group:
+                sprite.kill()
+            for sprite in enemy_group:
+                sprite.kill()
+            for sprite in particle_group:
+                sprite.kill()
+            main(level)
+            return
+        for sprite in player_group:
+            camera.apply(sprite)
+        for sprite in tiles_group:
+            camera.apply(sprite)
+        for sprite in loot_group:
+            camera.apply(sprite)
+        for sprite in chest_group:
+            camera.apply(sprite)
+        for sprite in enemy_group:
+            camera.apply(sprite)
+        for sprite in particle_group:
+            camera.apply(sprite)
         clock.tick(logic.constants.FPS)
         pygame.display.flip()
 

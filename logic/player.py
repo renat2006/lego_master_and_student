@@ -149,6 +149,10 @@ class Player(pygame.sprite.Sprite):
     def collide_with_enemy(self, collide_enemy):
         dir = None
         for enemy in collide_enemy:
+            if self.rect.x >= enemy.rect.x + enemy.rect.width // 2:
+                dir = RIGHT
+            else:
+                dir = LEFT
             if enemy.rect.top < self.rect.bottom and \
                     self.rect.bottom - enemy.rect.top <= enemy.rect.height // 2:
                 self.rect.bottom = enemy.rect.top
@@ -156,10 +160,7 @@ class Player(pygame.sprite.Sprite):
                 enemy.kill()
                 self.points += 1
                 return
-            elif self.rect.x >= enemy.rect.x + enemy.rect.width // 2:
-                dir = RIGHT
-            else:
-                dir = LEFT
+
         self.lives -= 1
         if dir == RIGHT:
             self.throw_right()
@@ -274,4 +275,3 @@ class Player(pygame.sprite.Sprite):
                     self.bullet_count -= 1
                 self.old_time = self.counter
             return None
-
