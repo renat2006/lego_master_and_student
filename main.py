@@ -3,6 +3,7 @@ import pygame.sprite
 from generate_level import tiles_group, all_sprites
 
 from logic.camera import Camera
+from logic.final import final_screen
 
 from logic.screen_and_init import *
 from logic.start_screen import *
@@ -17,6 +18,7 @@ from logic.enemy import enemy_group
 import cv2
 
 screen, clock = init(logic.constants.SIZE)
+final_screen(screen, clock, 30)
 start_screen(screen, clock)
 load_menu(screen, clock)
 
