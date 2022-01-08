@@ -20,12 +20,12 @@ class Particle(pygame.sprite.Sprite):
         super().__init__(particle_group)
         self.image = random.choice(self.fire)
         self.rect = self.image.get_rect()
-
+        self.frame = 0
         self.velocity = [dx, dy]
 
         self.rect.x, self.rect.y = pos
 
-        self.gravity = 0.1
+        self.gravity = 0.2
 
     def update(self):
 

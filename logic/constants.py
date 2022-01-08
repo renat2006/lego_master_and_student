@@ -27,8 +27,14 @@ tile_images = {
     'wall': 'data/box.png',
     'empty': None,
     'plate': 'data/plate.png',
+    'heart': 'data/hurt.png',
+    'jump': 'data/jump.png',
+    'speed': 'data/speed.png',
+    'glass': 'data/glass.png',
+    'chest': 'data/chest.png'
 
 }
+COIN_ANIM = 'data/coin/'
 GUN_ANIM = 'data/gun/'
 GUN_ANIM_RELOAD = 'data/reload/'
 GUN = 'data/gun/gun_01.png'
@@ -45,3 +51,8 @@ LEFT = -1
 HEART = 'data/hurt.png'
 UP_BOOST = 'data/jump.png'
 SPEED_BOOST = 'data/speed.png'
+
+ENEMY_STEP = 1
+ENEMY_IMAGE_PATH = tile_images["wall"]
+enemy_height = tile_height
+enemy_width = tile_width

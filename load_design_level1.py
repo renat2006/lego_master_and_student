@@ -1,9 +1,12 @@
 import logic.load_image
 import logic.constants
 from generate_level import *
+from logic.enemy import *
 import pygame
-from logic.player import *
 
+from logic.chest import Chest
+from logic.player import *
+from logic.loot import *
 
 # код Айгуль----------
 
@@ -28,6 +31,20 @@ def generate_level(level):
                 tiles.append(Tile(load_image(logic.constants.tile_images['wall']), x, y))
             elif level[y][x] == '-':
                 tiles.append(Tile(load_image(logic.constants.tile_images['plate']), x, y))
+            elif level[y][x] == '*':
+                tiles.append(Tile(load_image(logic.constants.tile_images['glass']), x, y))
+            elif level[y][x] == '+':
+                Chest(load_image(logic.constants.tile_images['chest']), x, y)
+            elif level[y][x] == '/':
+                tiles.append(Tile(load_image(logic.constants.tile_images['wood']), x, y))
+            elif level[y][x] == 'h':
+                Loot(load_image(logic.constants.tile_images['heart']), 'live', x, y)
+            elif level[y][x] == 's':
+                Loot(load_image(logic.constants.tile_images['speed']), 'speed', x, y)
+            elif level[y][x] == 'j':
+                Loot(load_image(logic.constants.tile_images['jump']), 'jump', x, y)
             elif level[y][x] == '@':
                 new_player = Player(x, y)
+            elif level[y][x] == '!':
+                enemy_group.add(Enemy(x, y))
     return new_player, x, y, tiles

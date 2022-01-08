@@ -2,6 +2,7 @@ import pygame.sprite
 
 from generate_level import tiles_group, all_sprites
 from load_design_level1 import load_fon, generate_level, load_level
+from logic.chest import chest_group
 from logic.screen_and_init import *
 from logic.start_screen import *
 from logic.menu import *
@@ -9,8 +10,8 @@ import logic.constants
 from logic.player import *
 from logic.in_game_menu import *
 from logic.loot import *
+from logic.enemy import enemy_group
 
-loot = Loot(load_image(logic.constants.HEART), 1, 5, 5)
 screen, clock = init(logic.constants.SIZE)
 start_screen(screen, clock)
 load_menu(screen, clock)
@@ -77,9 +78,25 @@ while running:
     particle_group.draw(screen)
     loot_group.update()
     loot_group.draw(screen)
+    enemy_group.update()
+    enemy_group.draw(screen)
     pygame.sprite.groupcollide(bullet_group, tiles_group, True, True)
     player.spell_check()
     player.lives_manager()
+    chest_group.update()
+    chest_group.draw(screen)
+    loot_list_hit = pygame.sprite.spritecollide(player, loot_group, False)
+    for loot in loot_list_hit:
+        numbers = range(-10, 10)
+        for _ in range(100):
+            Particle(loot.rect.center, random.choice(numbers), random.choice(numbers), loot.image)
+        if loot.bonus_effect == 'speed':
+            player.speed_count += 1
+        elif loot.bonus_effect == 'live':
+            player.heart_count += 1
+        elif loot.bonus_effect == 'jump':
+            player.up_boost_count += 1
+        loot.kill()
     if block_texture:
         can_build = True
         if keys[pygame.K_f] or keys[pygame.K_s] or keys[pygame.K_DOWN]:
