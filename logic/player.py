@@ -213,21 +213,21 @@ class Player(pygame.sprite.Sprite):
                 self.up_boost_count -= 1
                 self.jump_boost = 2
                 numbers = range(-10, 10)
-                for _ in range(20):
+                for _ in range(50):
                     Particle(self.block_rect, random.choice(numbers), random.choice(numbers), block_image)
             elif self.block_id == 2 and time_check and self.speed_count > 0:
 
                 self.speed_count -= 1
                 self.speed_boost = 2
                 numbers = range(-10, 10)
-                for _ in range(20):
+                for _ in range(50):
                     Particle(self.block_rect, random.choice(numbers), random.choice(numbers), block_image)
             elif self.block_id == 3 and time_check and self.heart_count > 0:
 
                 self.heart_count -= 1
                 self.lives += 1
                 numbers = range(-10, 10)
-                for _ in range(20):
+                for _ in range(50):
                     Particle(self.block_rect, random.choice(numbers), random.choice(numbers), block_image)
             elif self.block_id == 0 and time_check and self.block_count > 0:
 

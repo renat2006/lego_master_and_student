@@ -25,7 +25,7 @@ class Particle(pygame.sprite.Sprite):
 
         self.rect.x, self.rect.y = pos
 
-        self.gravity = 0.1
+        self.gravity = 0.2
 
     def update(self):
 

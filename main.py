@@ -10,7 +10,6 @@ from logic.player import *
 from logic.in_game_menu import *
 from logic.loot import *
 
-
 screen, clock = init(logic.constants.SIZE)
 start_screen(screen, clock)
 load_menu(screen, clock)
@@ -80,6 +79,18 @@ while running:
     pygame.sprite.groupcollide(bullet_group, tiles_group, True, True)
     player.spell_check()
     player.lives_manager()
+    loot_list_hit = pygame.sprite.spritecollide(player, loot_group, False)
+    for loot in loot_list_hit:
+        numbers = range(-10, 10)
+        for _ in range(100):
+            Particle(loot.rect.center, random.choice(numbers), random.choice(numbers), loot.image)
+        if loot.bonus_effect == 'speed':
+            player.speed_count += 1
+        elif loot.bonus_effect == 'live':
+            player.heart_count += 1
+        elif loot.bonus_effect == 'jump':
+            player.up_boost_count += 1
+        loot.kill()
     if block_texture:
         can_build = True
         if keys[pygame.K_f] or keys[pygame.K_s] or keys[pygame.K_DOWN]:
