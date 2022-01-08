@@ -1,32 +1,4 @@
-import pygame.sprite
-
-from generate_level import tiles_group, all_sprites
-from load_design_level1 import load_fon, generate_level, load_level
-from logic.camera import Camera
-from logic.chest import chest_group
-from logic.screen_and_init import *
-from logic.start_screen import *
-from logic.menu import *
-import logic.constants
-from logic.player import *
-from logic.in_game_menu import *
-from logic.loot import *
-from logic.enemy import enemy_group
-
-screen, clock = init(logic.constants.SIZE)
-start_screen(screen, clock)
-load_menu(screen, clock)
-running = True
-fon, moon = load_fon(logic.constants.BACKGROUND_1level, logic.constants.MOON_1level, screen)
-player, level_x, level_y, tiles = generate_level(load_level('level1.txt'))
-player.link_to_surface(screen)
-jump_stage = logic.constants.JUMP_VALUE
-jump_sound = pygame.mixer.Sound(logic.constants.JUMP_SOUND)
-jump_sound.set_volume(pygame.mixer.music.get_volume() * 2)
-inventory = Inventory(screen)
-is_collide = False
-camera = Camera()
-while running:
+def load_logic():
     keys = pygame.key.get_pressed()
 
     player.set_idle()
@@ -134,8 +106,3 @@ while running:
     is_coll_chest = pygame.sprite.spritecollide(player, chest_group, False)
     if is_coll_chest:
         chest_group.sprites()[0].coin()
-
-    clock.tick(logic.constants.FPS)
-    pygame.display.flip()
-
-# ------------------------------------------------------

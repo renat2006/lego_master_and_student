@@ -16,7 +16,6 @@ def init(size, vol=0.1):
         screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
     else:
         screen = pygame.display.set_mode(size)
-
     logic.constants.SIZE = logic.constants.WIDTH, logic.constants.HEIGHT = screen.get_size()
     logic.constants.SCREEN_CONST = (logic.constants.WIDTH * logic.constants.HEIGHT) / (1920 * 1080)
 
