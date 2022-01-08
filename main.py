@@ -164,6 +164,12 @@ def main(level):
 
             player.draw_block(block_texture, block_id)
         is_coll_chest = pygame.sprite.spritecollide(player, chest_group, False)
+        collide_enemy = pygame.sprite.spritecollide(player, enemy_group, False)
+        if collide_enemy:
+            if player.is_jump():
+                player.set_jump()
+                jump_stage = logic.constants.JUMP_VALUE
+            player.collide_with_enemy(collide_enemy)
         if is_coll_chest:
             chest_group.sprites()[0].coin()
             player.jump_boost = 0
@@ -183,6 +189,7 @@ def main(level):
                     sprite.kill()
 
                 return
+
         clock.tick(logic.constants.FPS)
         pygame.display.flip()
 
