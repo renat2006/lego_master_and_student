@@ -2,7 +2,7 @@ import pygame
 from pygame.rect import Rect
 from logic.particle import *
 from logic.load_image import *
-import logic.constants
+from logic.constants import *
 import sys
 from logic.bullet import *
 
@@ -16,6 +16,8 @@ player_group = pygame.sprite.Group()
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__(player_group)
+        self.points = 0
+        self.jump_move = 0
         self.screen = None
         self.direction = 1
         self.idle = load_image(logic.constants.PLAYER_IMAGE_PATH)
@@ -123,6 +125,7 @@ class Player(pygame.sprite.Sprite):
                 self.image = self.frames_flipped[self.cur_frame]
 
     def set_jump(self):
+        self.jump_move = 0
         if self.is_jump():
             self.jumping = False
         else:
@@ -138,10 +141,38 @@ class Player(pygame.sprite.Sprite):
         return False
 
     def next_jump_stage(self, jump_stage):
-        self.rect = self.rect.move(0, jump_stage * self.jump_boost)
+        self.rect = self.rect.move(self.jump_move, jump_stage * self.jump_boost)
 
     def gravity(self):
         self.rect = self.rect.move(0, 9.8 * self.jump_boost)
+
+    def collide_with_enemy(self, collide_enemy):
+        dir = None
+        for enemy in collide_enemy:
+            if enemy.rect.top < self.rect.bottom and \
+                    self.rect.bottom - enemy.rect.top <= enemy.rect.height // 2:
+                self.rect.bottom = enemy.rect.top
+                self.set_jump()
+                enemy.kill()
+                self.points += 1
+                return
+            elif self.rect.x >= enemy.rect.x + enemy.rect.width // 2:
+                dir = RIGHT
+            else:
+                dir = LEFT
+        self.lives -= 1
+        if dir == RIGHT:
+            self.throw_right()
+        else:
+            self.throw_left()
+
+    def throw_right(self):
+        self.set_jump()
+        self.jump_move = 5
+
+    def throw_left(self):
+        self.set_jump()
+        self.jump_move = -5
 
     def set_idle(self):
         if self.direction == 1:
@@ -189,7 +220,6 @@ class Player(pygame.sprite.Sprite):
                 block_image = pygame.transform.flip(block_image, True, False)
                 self.block_rect = self.rect.left - 20, self.rect.top + (
                         self.rect.height - block_image.get_height() // 3) // 2
-            print(block_id)
             if block_id == 0:
                 text = font.render(str(self.block_count), True, 'red')
             elif block_id == 1:
@@ -244,3 +274,4 @@ class Player(pygame.sprite.Sprite):
                     self.bullet_count -= 1
                 self.old_time = self.counter
             return None
+

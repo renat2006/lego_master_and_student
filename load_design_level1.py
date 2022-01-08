@@ -46,5 +46,6 @@ def generate_level(level):
             elif level[y][x] == '@':
                 new_player = Player(x, y)
             elif level[y][x] == '!':
-                enemy_group.add(Enemy(x, y))
-    return new_player, x, y, tiles
+                enemy = Enemy(x, y)
+                enemy_group.add(enemy)
+    return new_player, x, y, tiles, enemy

@@ -55,12 +55,9 @@ class Enemy(pygame.sprite.Sprite):
                         self.set_direction()
                         return
             if self.direction == LEFT:
-                print(is_can_move)
                 if tile.rect.top == self.rect.bottom:
                     if tile.rect.right > self.rect.left - ENEMY_STEP >= tile.rect.left:
                         is_can_move = True
-                    else:
-                        print(is_can_move)
                 if tile.rect.top < self.rect.bottom and tile.rect.bottom > self.rect.top:
                     if self.rect.left <= tile.rect.right < self.rect.right:
                         self.set_direction()
