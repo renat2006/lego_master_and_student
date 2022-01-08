@@ -17,7 +17,11 @@ LOGO_SIZE = 411, 83
 BTN_COLOR = ['black', 'red']
 STEP = 4
 JUMP_VALUE = -15
-BACKGROUND_1level = "data/fon_city.png"
+FONS = {
+    '1': 'data/fon_city.png',
+    '2': 'data/fon_forest.png',
+    '3': 'data/fon_desert.png'
+}
 MOON_1level = "data/moon.png"
 CURSOR_IMG = 'data/cursor.png'
 tile_width = tile_height = 70
