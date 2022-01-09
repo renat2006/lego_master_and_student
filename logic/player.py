@@ -41,6 +41,8 @@ class Player(pygame.sprite.Sprite):
         self.spell_timer = 0
         self.old_time = self.counter
         self.lives = 2
+        self.time_sound = pygame.mixer.Sound(logic.constants.TIME_SOUND)
+        self.shoot_sound = pygame.mixer.Sound(logic.constants.SHOOT_SOUND)
         self.live_image = pygame.transform.scale(load_image(logic.constants.HEART), (50, 50))
         r_name = os.listdir(logic.constants.PLAYER_RUN_IMAGE_PATH)
         for i in r_name:
@@ -66,6 +68,8 @@ class Player(pygame.sprite.Sprite):
 
     def spell_check(self):
         if self.jump_boost == 1.5 or self.speed_boost == 1.5:
+            if self.spell_timer == 5 * logic.constants.FPS:
+                self.time_sound.play()
             font = pygame.font.Font(logic.constants.FONT_PATH, logic.constants.MAIN_TEXT_SIZE)
             text = font.render(str(7 - self.spell_timer // logic.constants.FPS), True, 'red')
             self.screen.blit(text, (logic.constants.WIDTH // 2 - text.get_width() // 2, 100))
@@ -275,6 +279,7 @@ class Player(pygame.sprite.Sprite):
         else:
             if self.counter % 7 == 0 and self.bullet_count > 0:
                 if block_image == logic.constants.GUN:
+                    self.shoot_sound.play()
                     Bullet(self.block_rect[0], self.block_rect[1] + 12, 50 * self.direction)
                     self.shooting = True
                     self.bullet_count -= 1
