@@ -136,7 +136,7 @@ def main(level):
         chest_group.draw(screen)
         loot_list_hit = pygame.sprite.spritecollide(player, loot_group, False)
         for loot in loot_list_hit:
-            loot_sound.play()
+
             numbers = range(-10, 10)
             for _ in range(100):
                 Particle(loot.rect.center, random.choice(numbers), random.choice(numbers), loot.image)
@@ -153,7 +153,7 @@ def main(level):
 
                 if block_id != 0:
                     block = player.set_block(block_texture)
-                    loot_sound.play()
+
                 for block in tiles_group:
                     if block.rect.x <= player.rect.right + 20 < block.rect.right \
                             and player.rect.bottom > block.rect.top and player.rect.top < block.rect.bottom:
