@@ -3,6 +3,7 @@ import pygame.sprite
 from generate_level import tiles_group, all_sprites
 
 from logic.camera import Camera
+from logic.database import update_table, select_table
 from logic.final import final_screen
 
 from logic.screen_and_init import *
@@ -18,7 +19,7 @@ from logic.enemy import enemy_group
 import cv2
 
 screen, clock = init(logic.constants.SIZE)
-final_screen(screen, clock, 30)
+
 start_screen(screen, clock)
 load_menu(screen, clock)
 
@@ -126,8 +127,6 @@ def main(level):
                 jump_stage = JUMP_VALUE
             player.collide_with_enemy(collide_enemy)
 
-
-
         chest_group.draw(screen)
         loot_list_hit = pygame.sprite.spritecollide(player, loot_group, False)
         for loot in loot_list_hit:
@@ -169,9 +168,11 @@ def main(level):
             player.collide_with_enemy(collide_enemy)
         if is_coll_chest:
             chest_group.sprites()[0].coin()
+            player.points += 10
             player.jump_boost = 0
             player.speed_boost = 0
             if not particle_group.sprites():
+                update_table('points', 'points', player.points, 'id', 1)
                 for sprite in player_group:
                     sprite.kill()
                 for sprite in tiles_group:
@@ -221,7 +222,14 @@ def main(level):
 
 video('1')
 main('1')
+update_table('current_level', 'curr_level', 2, 'id', 1)
+update_table('current_level', 'level_name', 2, 'id', 1)
 video('2')
 main('2')
+update_table('current_level', 'curr_level', 3, 'id', 1)
+update_table('current_level', 'level_name', 2, 'id', 1)
 video('3')
 main('3')
+update_table('current_level', 'curr_level', 1, 'id', 1)
+update_table('current_level', 'level_name', 2, 'id', 1)
+final_screen(screen, clock, *select_table('points', 'points'))

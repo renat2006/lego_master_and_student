@@ -6,14 +6,10 @@ from logic.text import *
 
 
 def final_screen(screen, clock, points):
-    intro_text = ['']
-
     fon = pygame.transform.scale(load_image(logic.constants.MENU_FON_PATH), (logic.constants.SIZE))
     screen.blit(fon, (0, 0))
 
-    text_coord = 50
-
-    f_text = Text(str(points), 200, (100, 100), 'black').text
+    f_text = Text(str(points * 100), 200, (100, 100), 'black').text
     con_text = Text('Вы набрали:', 75, (100, 100), 'black').text
     screen.blit(con_text, (
         logic.constants.WIDTH // 2 - con_text.get_width() // 2,

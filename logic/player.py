@@ -158,7 +158,7 @@ class Player(pygame.sprite.Sprite):
                 self.rect.bottom = enemy.rect.top
                 self.set_jump()
                 enemy.kill()
-                self.points += 1
+                self.points += 5
                 return
 
         self.lives -= 1
@@ -235,6 +235,7 @@ class Player(pygame.sprite.Sprite):
         self.screen.blit(block_image, self.block_rect)
 
     def set_block(self, block_image):
+        self.points -= 1
         if block_image != logic.constants.GUN:
             time_check = self.counter % 8 == 0 and self.spell_timer == 0
             self.block_rect = (
