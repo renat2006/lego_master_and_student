@@ -72,7 +72,8 @@ class Player(pygame.sprite.Sprite):
                 self.time_sound.play()
             font = pygame.font.Font(logic.constants.FONT_PATH, logic.constants.MAIN_TEXT_SIZE)
             text = font.render(str(7 - self.spell_timer // logic.constants.FPS), True, 'red')
-            self.screen.blit(text, (logic.constants.WIDTH // 2 - text.get_width() // 2, 100))
+            self.screen.blit(text,
+                             (logic.constants.WIDTH // 2 - text.get_width() // 2, 100 // logic.constants.SCREEN_CONST))
             self.spell_timer += 1
         if self.spell_timer >= 7 * logic.constants.FPS:
             self.spell_timer = 0
@@ -192,7 +193,8 @@ class Player(pygame.sprite.Sprite):
     def lives_manager(self):
 
         for i in range(self.lives):
-            self.screen.blit(self.live_image, ((5 + self.live_image.get_width()) * i + 10, 25))
+            self.screen.blit(self.live_image,
+                             ((5 + self.live_image.get_width()) * i + 10, 25 // logic.constants.SCREEN_CONST))
 
     def draw_block(self, block_image, block_id):
         self.block_id = block_id
