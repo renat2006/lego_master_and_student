@@ -1,16 +1,19 @@
 import logic.load_image
 import logic.constants
 from generate_level import *
+from logic.enemy import *
 import pygame
-from logic.player import *
 
+from logic.chest import Chest
+from logic.player import *
+from logic.loot import *
 
 # код Айгуль----------
 
-def load_fon(fon_name, moon_name, screen):
+def load_fon(fon_name, screen):
     fon = pygame.transform.scale(load_image(fon_name), logic.constants.SIZE)
-    moon = pygame.transform.scale(load_image(moon_name), logic.constants.SIZE)
-    return fon, moon
+
+    return fon
 
 
 def load_level(filename):
@@ -28,6 +31,21 @@ def generate_level(level):
                 tiles.append(Tile(load_image(logic.constants.tile_images['wall']), x, y))
             elif level[y][x] == '-':
                 tiles.append(Tile(load_image(logic.constants.tile_images['plate']), x, y))
+            elif level[y][x] == '*':
+                tiles.append(Tile(load_image(logic.constants.tile_images['glass']), x, y))
+            elif level[y][x] == '+':
+                Chest(load_image(logic.constants.tile_images['chest']), x, y)
+            elif level[y][x] == '/':
+                tiles.append(Tile(load_image(logic.constants.tile_images['wood']), x, y))
+            elif level[y][x] == 'h':
+                Loot(load_image(logic.constants.tile_images['heart']), 'live', x, y)
+            elif level[y][x] == 's':
+                Loot(load_image(logic.constants.tile_images['speed']), 'speed', x, y)
+            elif level[y][x] == 'j':
+                Loot(load_image(logic.constants.tile_images['jump']), 'jump', x, y)
             elif level[y][x] == '@':
                 new_player = Player(x, y)
-    return new_player, x, y, tiles
+            elif level[y][x] == '!':
+                enemy = Enemy(x, y)
+                enemy_group.add(enemy)
+    return new_player, x, y, tiles, enemy

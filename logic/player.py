@@ -2,7 +2,7 @@ import pygame
 from pygame.rect import Rect
 from logic.particle import *
 from logic.load_image import *
-import logic.constants
+from logic.constants import *
 import sys
 from logic.bullet import *
 
@@ -16,6 +16,8 @@ player_group = pygame.sprite.Group()
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__(player_group)
+        self.points = 0
+        self.jump_move = 0
         self.screen = None
         self.direction = 1
         self.idle = load_image(logic.constants.PLAYER_IMAGE_PATH)
@@ -38,7 +40,7 @@ class Player(pygame.sprite.Sprite):
         self.speed_boost = 1
         self.spell_timer = 0
         self.old_time = self.counter
-        self.lives = 1
+        self.lives = 2
         self.live_image = pygame.transform.scale(load_image(logic.constants.HEART), (50, 50))
         r_name = os.listdir(logic.constants.PLAYER_RUN_IMAGE_PATH)
         for i in r_name:
@@ -123,6 +125,7 @@ class Player(pygame.sprite.Sprite):
                 self.image = self.frames_flipped[self.cur_frame]
 
     def set_jump(self):
+        self.jump_move = 0
         if self.is_jump():
             self.jumping = False
         else:
@@ -138,10 +141,43 @@ class Player(pygame.sprite.Sprite):
         return False
 
     def next_jump_stage(self, jump_stage):
-        self.rect = self.rect.move(0, jump_stage * self.jump_boost)
+        self.rect = self.rect.move(self.jump_move, jump_stage * self.jump_boost)
 
     def gravity(self):
         self.rect = self.rect.move(0, 9.8 * self.jump_boost)
+
+    def collide_with_enemy(self, collide_enemy):
+        dir = None
+        for enemy in collide_enemy:
+            if self.rect.x >= enemy.rect.x + enemy.rect.width // 2:
+                dir = RIGHT
+            else:
+                dir = LEFT
+            if enemy.rect.top < self.rect.bottom and \
+                    self.rect.bottom - enemy.rect.top <= enemy.rect.height // 2:
+                self.rect.bottom = enemy.rect.top
+                self.set_jump()
+
+                enemy.kill()
+                self.points += 5
+                return
+
+        self.lives -= 1
+        if dir == RIGHT:
+            self.throw_right()
+        else:
+            self.throw_left()
+
+    def down_check(self):
+        return self.rect.bottom >= logic.constants.HEIGHT - self.rect.height
+
+    def throw_right(self):
+        self.set_jump()
+        self.jump_move = 5
+
+    def throw_left(self):
+        self.set_jump()
+        self.jump_move = -5
 
     def set_idle(self):
         if self.direction == 1:
@@ -189,7 +225,6 @@ class Player(pygame.sprite.Sprite):
                 block_image = pygame.transform.flip(block_image, True, False)
                 self.block_rect = self.rect.left - 20, self.rect.top + (
                         self.rect.height - block_image.get_height() // 3) // 2
-            print(block_id)
             if block_id == 0:
                 text = font.render(str(self.block_count), True, 'red')
             elif block_id == 1:
@@ -204,6 +239,7 @@ class Player(pygame.sprite.Sprite):
         self.screen.blit(block_image, self.block_rect)
 
     def set_block(self, block_image):
+        self.points -= 1
         if block_image != logic.constants.GUN:
             time_check = self.counter % 8 == 0 and self.spell_timer == 0
             self.block_rect = (
@@ -213,21 +249,21 @@ class Player(pygame.sprite.Sprite):
                 self.up_boost_count -= 1
                 self.jump_boost = 2
                 numbers = range(-10, 10)
-                for _ in range(20):
+                for _ in range(50):
                     Particle(self.block_rect, random.choice(numbers), random.choice(numbers), block_image)
             elif self.block_id == 2 and time_check and self.speed_count > 0:
 
                 self.speed_count -= 1
                 self.speed_boost = 2
                 numbers = range(-10, 10)
-                for _ in range(20):
+                for _ in range(50):
                     Particle(self.block_rect, random.choice(numbers), random.choice(numbers), block_image)
             elif self.block_id == 3 and time_check and self.heart_count > 0:
 
                 self.heart_count -= 1
-                self.lives += 1
+                self.lives += 2
                 numbers = range(-10, 10)
-                for _ in range(20):
+                for _ in range(50):
                     Particle(self.block_rect, random.choice(numbers), random.choice(numbers), block_image)
             elif self.block_id == 0 and time_check and self.block_count > 0:
 
