@@ -157,7 +157,6 @@ def main(level):
                 for block in tiles_group:
                     if block.rect.x <= player.rect.right + 20 < block.rect.right \
                             and player.rect.bottom > block.rect.top and player.rect.top < block.rect.bottom:
-                        print(False)
                         can_build = False
                 if can_build and block_id == 0:
                     block = player.set_block(block_texture)
@@ -238,6 +237,9 @@ if int(select_table('current_level', 'curr_level')[0][0]) == 1:
     update_table('current_level', 'curr_level', 2, 'id', 1)
     update_table('current_level', 'level_name', 2, 'id', 1)
 if int(select_table('current_level', 'curr_level')[0][0]) == 2:
+    tired_sound = pygame.mixer.Sound("data/music/you_tired.mp3")
+    tired_sound.set_volume(1)
+    tired_sound.play()
     video('2')
     main('2')
     update_table('current_level', 'curr_level', 3, 'id', 1)
