@@ -1,3 +1,6 @@
+import os
+
+os.system('pip install -r requirements.txt')
 import importlib
 import pygame.sprite
 from generate_level import tiles_group, all_sprites
