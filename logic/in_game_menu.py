@@ -12,12 +12,12 @@ class Inventory:
         self.screen = screen
         self.padding = 5
         self.cur_gun_frame = 0
-        self.pos_x = (logic.constants.WIDTH - logic.constants.INVENTORY_COLUMNS * (
-                logic.constants.INVENTORY_HEIGHT + self.padding) - self.padding) // 2
-        self.pos_y = logic.constants.HEIGHT - logic.constants.INVENTORY_HEIGHT
+        self.pos_x = (logic.constants.WIDTH * logic.constants.SCREEN_CONST - logic.constants.INVENTORY_COLUMNS * (
+                logic.constants.INVENTORY_HEIGHT * logic.constants.SCREEN_CONST + self.padding) - self.padding) // 2
+        self.pos_y = logic.constants.HEIGHT - logic.constants.INVENTORY_HEIGHT * logic.constants.SCREEN_CONST
         self.rect = Rect(self.pos_x, self.pos_y, logic.constants.INVENTORY_COLUMNS * (
-                logic.constants.INVENTORY_HEIGHT + self.padding) + self.padding,
-                         logic.constants.INVENTORY_HEIGHT)
+                logic.constants.INVENTORY_HEIGHT * logic.constants.SCREEN_CONST + self.padding) + self.padding,
+                         logic.constants.INVENTORY_HEIGHT * logic.constants.SCREEN_CONST)
         self.images = [load_image(logic.constants.tile_images['wall']),
                        load_image(logic.constants.UP_BOOST),
                        load_image(logic.constants.SPEED_BOOST),
@@ -63,17 +63,19 @@ class Inventory:
         for i in range(logic.constants.INVENTORY_COLUMNS):
             curr_rect = pygame.draw.rect(self.screen, logic.constants.BTN_COLOR[self.colors[i]],
                                          (self.pos_x + self.padding + i * (
-                                                 logic.constants.INVENTORY_HEIGHT + self.padding),
+                                                 logic.constants.INVENTORY_HEIGHT * logic.constants.SCREEN_CONST + self.padding),
                                           self.pos_y + self.padding,
-                                          logic.constants.INVENTORY_HEIGHT,
-                                          logic.constants.INVENTORY_HEIGHT - self.padding * 2)
+                                          logic.constants.INVENTORY_HEIGHT * logic.constants.SCREEN_CONST,
+                                          logic.constants.INVENTORY_HEIGHT * logic.constants.SCREEN_CONST - self.padding * 2)
                                          )
             if i <= len(self.images) - 1:
 
                 rect = curr_rect.x - self.images[i].get_rect().width // 2 + curr_rect.width // 2, curr_rect.y - \
                        self.images[i].get_rect().height // 2 + curr_rect.height // 2
 
-                blit_image = self.images[i]
+                blit_image = pygame.transform.scale(self.images[i],
+                                                    (self.images[i].get_width() * logic.constants.SCREEN_CONST,
+                                                     self.images[i].get_height() * logic.constants.SCREEN_CONST))
                 if self.colors[-1] == 1 and i == 4:
                     self.cur_gun_frame = (self.cur_gun_frame + 1) % len(self.gun)
                     blit_image = self.gun[self.cur_gun_frame]
