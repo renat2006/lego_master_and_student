@@ -65,12 +65,12 @@ class Player(pygame.sprite.Sprite):
             self.pos_x, self.pos_y)
 
     def spell_check(self):
-        if self.jump_boost == 2 or self.speed_boost == 2:
+        if self.jump_boost == 1.5 or self.speed_boost == 1.5:
             font = pygame.font.Font(logic.constants.FONT_PATH, logic.constants.MAIN_TEXT_SIZE)
-            text = font.render(str(15 - self.spell_timer // logic.constants.FPS), True, 'red')
+            text = font.render(str(7 - self.spell_timer // logic.constants.FPS), True, 'red')
             self.screen.blit(text, (logic.constants.WIDTH // 2 - text.get_width() // 2, 100))
             self.spell_timer += 1
-        if self.spell_timer >= 15 * logic.constants.FPS:
+        if self.spell_timer >= 7 * logic.constants.FPS:
             self.spell_timer = 0
             self.jump_boost = 1
             self.speed_boost = 1
@@ -247,14 +247,14 @@ class Player(pygame.sprite.Sprite):
             if self.block_id == 1 and time_check and self.up_boost_count > 0:
 
                 self.up_boost_count -= 1
-                self.jump_boost = 2
+                self.jump_boost = 1.5
                 numbers = range(-10, 10)
                 for _ in range(50):
                     Particle(self.block_rect, random.choice(numbers), random.choice(numbers), block_image)
             elif self.block_id == 2 and time_check and self.speed_count > 0:
 
                 self.speed_count -= 1
-                self.speed_boost = 2
+                self.speed_boost = 1.5
                 numbers = range(-10, 10)
                 for _ in range(50):
                     Particle(self.block_rect, random.choice(numbers), random.choice(numbers), block_image)
