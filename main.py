@@ -57,6 +57,9 @@ def main(level):
     player.link_to_surface(screen)
     jump_stage = logic.constants.JUMP_VALUE
     jump_sound = pygame.mixer.Sound(logic.constants.JUMP_SOUND)
+
+    game_over_sound = pygame.mixer.Sound(logic.constants.GAME_OVER_SOUND)
+    loot_sound = pygame.mixer.Sound(logic.constants.LOOT_SOUND)
     jump_sound.set_volume(pygame.mixer.music.get_volume() * 2)
     inventory = Inventory(screen)
     is_collide = False
@@ -133,6 +136,7 @@ def main(level):
         chest_group.draw(screen)
         loot_list_hit = pygame.sprite.spritecollide(player, loot_group, False)
         for loot in loot_list_hit:
+
             numbers = range(-10, 10)
             for _ in range(100):
                 Particle(loot.rect.center, random.choice(numbers), random.choice(numbers), loot.image)
@@ -146,8 +150,10 @@ def main(level):
         if block_texture:
             can_build = True
             if keys[pygame.K_f] or keys[pygame.K_s] or keys[pygame.K_DOWN]:
+
                 if block_id != 0:
                     block = player.set_block(block_texture)
+
                 for block in tiles_group:
                     if block.rect.x <= player.rect.right + 20 < block.rect.right \
                             and player.rect.bottom > block.rect.top and player.rect.top < block.rect.bottom:
@@ -192,7 +198,7 @@ def main(level):
                 return
 
         if player.lives <= 0 or player.down_check():
-
+            game_over_sound.play()
             for sprite in player_group:
                 sprite.kill()
             for sprite in tiles_group:

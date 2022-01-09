@@ -61,3 +61,7 @@ ENEMY_IMAGE_PATH = tile_images["wall"]
 enemy_height = tile_height
 enemy_width = tile_width
 THROW_VALUE = -20
+LOOT_SOUND = 'data/music/loot.mp3'
+TIME_SOUND = 'data/music/time.mp3'
+SHOOT_SOUND = 'data/music/shoot.mp3'
+GAME_OVER_SOUND = 'data/music/game_over.mp3'

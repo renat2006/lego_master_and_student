@@ -6,6 +6,8 @@ from logic.text import *
 
 
 def final_screen(screen, clock, points):
+    pygame.mixer.music.load('data/music/last.mp3')
+    pygame.mixer.music.play(-1)
     fon = pygame.transform.scale(load_image(logic.constants.MENU_FON_PATH), (logic.constants.SIZE))
     screen.blit(fon, (0, 0))
 
