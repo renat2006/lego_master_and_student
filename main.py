@@ -246,6 +246,9 @@ if int(select_table('current_level', 'curr_level')[0][0]) == 2:
     update_table('current_level', 'level_name', 3, 'id', 1)
 if int(select_table('current_level', 'curr_level')[0][0]) == 3:
     video('3')
+    untired_sound = pygame.mixer.Sound("data/music/vosst.mp3")
+    untired_sound.set_volume(1)
+    untired_sound.play()
     main('3')
     update_table('current_level', 'curr_level', 1, 'id', 1)
     update_table('current_level', 'level_name', 2, 'id', 1)

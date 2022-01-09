@@ -65,3 +65,4 @@ LOOT_SOUND = 'data/music/loot.mp3'
 TIME_SOUND = 'data/music/time.mp3'
 SHOOT_SOUND = 'data/music/shoot.mp3'
 GAME_OVER_SOUND = 'data/music/game_over.mp3'
+
