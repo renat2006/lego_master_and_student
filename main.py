@@ -57,6 +57,9 @@ def main(level):
     player.link_to_surface(screen)
     jump_stage = logic.constants.JUMP_VALUE
     jump_sound = pygame.mixer.Sound(logic.constants.JUMP_SOUND)
+    shoot_sound = pygame.mixer.Sound(logic.constants.SHOOT_SOUND)
+    game_over_sound = pygame.mixer.Sound(logic.constants.GAME_OVER_SOUND)
+    loot_sound = pygame.mixer.Sound(logic.constants.LOOT_SOUND)
     jump_sound.set_volume(pygame.mixer.music.get_volume() * 2)
     inventory = Inventory(screen)
     is_collide = False
@@ -146,6 +149,8 @@ def main(level):
         if block_texture:
             can_build = True
             if keys[pygame.K_f] or keys[pygame.K_s] or keys[pygame.K_DOWN]:
+                if block_id == 5:
+                    shoot_sound.play()
                 if block_id != 0:
                     block = player.set_block(block_texture)
                 for block in tiles_group:
@@ -242,3 +247,4 @@ if int(select_table('current_level', 'curr_level')[0][0]) == 3:
     update_table('current_level', 'curr_level', 1, 'id', 1)
     update_table('current_level', 'level_name', 2, 'id', 1)
     final_screen(screen, clock, *select_table('points', 'points'))
+
