@@ -40,7 +40,7 @@ class Player(pygame.sprite.Sprite):
         self.speed_boost = 1
         self.spell_timer = 0
         self.old_time = self.counter
-        self.lives = 1
+        self.lives = 2
         self.live_image = pygame.transform.scale(load_image(logic.constants.HEART), (50, 50))
         r_name = os.listdir(logic.constants.PLAYER_RUN_IMAGE_PATH)
         for i in r_name:
@@ -157,6 +157,7 @@ class Player(pygame.sprite.Sprite):
                     self.rect.bottom - enemy.rect.top <= enemy.rect.height // 2:
                 self.rect.bottom = enemy.rect.top
                 self.set_jump()
+
                 enemy.kill()
                 self.points += 5
                 return
@@ -166,6 +167,9 @@ class Player(pygame.sprite.Sprite):
             self.throw_right()
         else:
             self.throw_left()
+
+    def down_check(self):
+        return self.rect.bottom >= logic.constants.HEIGHT - self.rect.height
 
     def throw_right(self):
         self.set_jump()
@@ -257,7 +261,7 @@ class Player(pygame.sprite.Sprite):
             elif self.block_id == 3 and time_check and self.heart_count > 0:
 
                 self.heart_count -= 1
-                self.lives += 1
+                self.lives += 2
                 numbers = range(-10, 10)
                 for _ in range(50):
                     Particle(self.block_rect, random.choice(numbers), random.choice(numbers), block_image)

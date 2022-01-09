@@ -1,5 +1,6 @@
 import pygame.mouse
 
+from logic.database import update_table
 from logic.imports import *
 from logic.load_image import *
 import logic.constants
@@ -123,6 +124,11 @@ def load_menu(screen, clock):
 
                     btn_colors[i] = 1
                     if pygame.mouse.get_pressed()[0] and i == 0:
+                        update_table('points', 'points', 0, 'id', 1)
+                        update_table('current_level', 'curr_level', 1, 'id', 1)
+                        update_table('current_level', 'level_name', 2, 'id', 1)
+                        return
+                    elif pygame.mouse.get_pressed()[0] and i == 1:
                         return
                     elif pygame.mouse.get_pressed()[0] and i == 2:
                         is_opened_set = True
@@ -142,7 +148,7 @@ def load_menu(screen, clock):
                                                                                                 int(
                                                                                                     settings.input_fields[
                                                                                                         1].textinput.value))
-                        print(int(settings.input_fields[2].textinput.value) / 100)
+
                         logic.screen_and_init.init(logic.constants.SIZE,
                                                    int(settings.input_fields[2].textinput.value) / 100)
                         load_menu(screen, clock)

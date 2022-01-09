@@ -187,8 +187,8 @@ def main(level):
                     sprite.kill()
 
                 return
-        print(player.lives)
-        if player.lives <= 0:
+
+        if player.lives <= 0 or player.down_check():
 
             for sprite in player_group:
                 sprite.kill()
@@ -220,16 +220,22 @@ def main(level):
         pygame.display.flip()
 
 
-video('1')
-main('1')
-update_table('current_level', 'curr_level', 2, 'id', 1)
-update_table('current_level', 'level_name', 2, 'id', 1)
-video('2')
-main('2')
-update_table('current_level', 'curr_level', 3, 'id', 1)
-update_table('current_level', 'level_name', 2, 'id', 1)
-video('3')
-main('3')
-update_table('current_level', 'curr_level', 1, 'id', 1)
-update_table('current_level', 'level_name', 2, 'id', 1)
-final_screen(screen, clock, *select_table('points', 'points'))
+if int(select_table('current_level', 'curr_level')[0][0]) == 1:
+    update_table('points', 'points', 0, 'id', 1)
+    update_table('current_level', 'curr_level', 1, 'id', 1)
+    update_table('current_level', 'level_name', 2, 'id', 1)
+    video('1')
+    main('1')
+    update_table('current_level', 'curr_level', 2, 'id', 1)
+    update_table('current_level', 'level_name', 2, 'id', 1)
+if int(select_table('current_level', 'curr_level')[0][0]) == 2:
+    video('2')
+    main('2')
+    update_table('current_level', 'curr_level', 3, 'id', 1)
+    update_table('current_level', 'level_name', 3, 'id', 1)
+if int(select_table('current_level', 'curr_level')[0][0]) == 3:
+    video('3')
+    main('3')
+    update_table('current_level', 'curr_level', 1, 'id', 1)
+    update_table('current_level', 'level_name', 2, 'id', 1)
+    final_screen(screen, clock, *select_table('points', 'points'))
