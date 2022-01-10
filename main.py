@@ -51,6 +51,7 @@ def video(number):
 
 
 def main(level):
+    nex_level = False
     running = True
     fon = load_fon(logic.constants.FONS[level], screen)
     player, level_x, level_y, tiles, enemy = generate_level(load_level(f'level{level}.txt'))
@@ -177,26 +178,28 @@ def main(level):
             player.collide_with_enemy(collide_enemy)
         if is_coll_chest:
             chest_group.sprites()[0].coin()
-            player.points += 10
+
             player.jump_boost = 0
             player.speed_boost = 0
             if not particle_group.sprites():
-                update_table('points', 'points', player.points, 'id', 1)
-                for sprite in player_group:
-                    sprite.kill()
-                for sprite in tiles_group:
-                    sprite.kill()
-                for sprite in loot_group:
-                    sprite.kill()
-                for sprite in chest_group:
-                    sprite.kill()
-                for sprite in enemy_group:
-                    sprite.kill()
-                for sprite in particle_group:
-                    sprite.kill()
+                nex_level = True
 
-                return
-
+        if nex_level:
+            player.points += 1000
+            update_table('points', 'points', player.points, 'id', 1)
+            for sprite in player_group:
+                sprite.kill()
+            for sprite in tiles_group:
+                sprite.kill()
+            for sprite in loot_group:
+                sprite.kill()
+            for sprite in chest_group:
+                sprite.kill()
+            for sprite in enemy_group:
+                sprite.kill()
+            for sprite in particle_group:
+                sprite.kill()
+            return
         if player.lives <= 0 or player.down_check():
             game_over_sound.play()
             for sprite in player_group:

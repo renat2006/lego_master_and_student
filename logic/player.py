@@ -1,5 +1,7 @@
 import pygame
 from pygame.rect import Rect
+
+from logic.database import select_table
 from logic.particle import *
 from logic.load_image import *
 from logic.constants import *
@@ -16,7 +18,7 @@ player_group = pygame.sprite.Group()
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__(player_group)
-        self.points = 0
+        self.points = select_table('points', 'points')[0][0]
         self.jump_move = 0
         self.screen = None
         self.direction = 1
