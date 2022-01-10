@@ -14,6 +14,7 @@ def init(size, vol=0.7):
     pygame.mixer.music.set_volume(vol)
     if size == (0, 0):
         screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        screen = pygame.display.set_mode(screen.get_size())
     else:
         screen = pygame.display.set_mode(size)
     logic.constants.SIZE = logic.constants.WIDTH, logic.constants.HEIGHT = screen.get_size()

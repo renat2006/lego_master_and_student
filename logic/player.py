@@ -68,8 +68,6 @@ class Player(pygame.sprite.Sprite):
 
     def spell_check(self):
         if self.jump_boost == 1.5 or self.speed_boost == 1.5:
-
-
             font = pygame.font.Font(logic.constants.FONT_PATH, logic.constants.MAIN_TEXT_SIZE)
             text = font.render(str(7 - self.spell_timer // logic.constants.FPS), True, 'red')
             self.screen.blit(text,
@@ -108,6 +106,13 @@ class Player(pygame.sprite.Sprite):
 
     def link_to_surface(self, surface):
         self.screen = surface
+
+    def points_update(self):
+        font = pygame.font.Font(logic.constants.FONT_PATH, logic.constants.MAIN_TEXT_SIZE)
+        text = font.render(str(self.points) + ' очков', True, 'red')
+        self.screen.blit(text,
+                         (logic.constants.WIDTH - 25 - text.get_width(),
+                          25 // logic.constants.SCREEN_CONST))
 
     def move(self, x, y):
 
@@ -162,9 +167,9 @@ class Player(pygame.sprite.Sprite):
                     self.rect.bottom - enemy.rect.top <= enemy.rect.height // 2:
                 self.rect.bottom = enemy.rect.top
                 self.set_jump()
-
+                self.points += 500
                 enemy.kill()
-                self.points += 5
+
                 return
 
         self.lives -= 1
@@ -245,34 +250,34 @@ class Player(pygame.sprite.Sprite):
         self.screen.blit(block_image, self.block_rect)
 
     def set_block(self, block_image):
-        self.points -= 1
+
         if block_image != logic.constants.GUN:
             time_check = self.counter % 8 == 0 and self.spell_timer == 0
             self.block_rect = (
                 self.rect.right + 20, self.rect.top + (self.rect.height - block_image.get_height() // 3) // 2)
             if self.block_id == 1 and time_check and self.up_boost_count > 0:
-
+                self.points -= 100
                 self.up_boost_count -= 1
                 self.jump_boost = 1.5
                 numbers = range(-10, 10)
                 for _ in range(50):
                     Particle(self.block_rect, random.choice(numbers), random.choice(numbers), block_image)
             elif self.block_id == 2 and time_check and self.speed_count > 0:
-
+                self.points -= 100
                 self.speed_count -= 1
                 self.speed_boost = 1.5
                 numbers = range(-10, 10)
                 for _ in range(50):
                     Particle(self.block_rect, random.choice(numbers), random.choice(numbers), block_image)
             elif self.block_id == 3 and time_check and self.heart_count > 0:
-
+                self.points -= 100
                 self.heart_count -= 1
                 self.lives += 2
                 numbers = range(-10, 10)
                 for _ in range(50):
                     Particle(self.block_rect, random.choice(numbers), random.choice(numbers), block_image)
             elif self.block_id == 0 and time_check and self.block_count > 0:
-
+                self.points -= 50
                 self.block_count -= 1
                 return Tile(block_image, self.block_rect[0] // logic.constants.tile_width,
                             self.block_rect[1] // logic.constants.tile_height)
@@ -280,8 +285,9 @@ class Player(pygame.sprite.Sprite):
 
         else:
             if self.counter % 7 == 0 and self.bullet_count > 0:
-                if block_image == logic.constants.GUN:
 
+                if block_image == logic.constants.GUN:
+                    self.points -= 50
                     Bullet(self.block_rect[0], self.block_rect[1] + 12, 50 * self.direction)
                     self.shooting = True
                     self.bullet_count -= 1

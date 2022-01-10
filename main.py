@@ -126,6 +126,7 @@ def main(level):
         player.lives_manager()
         chest_group.update()
         camera.update(player)
+        player.points_update()
         collide_enemy = pygame.sprite.spritecollide(player, enemy_group, False)
         if collide_enemy:
             if player.is_jump():
